@@ -23,13 +23,20 @@ import frc.robot.subsystems.*;
 public class RobotContainer {
   /* Controllers */
   private final Joystick driver = new Joystick(0);
+  private final Joystick driver_2 = new Joystick(1);
 
   /* Drive Controls */
   private final int translationAxis = XboxController.Axis.kLeftY.value;
   private final int strafeAxis = XboxController.Axis.kLeftX.value;
-  private final int rotationAxis = XboxController.Axis.kRightX.value;
+  private final int rotationAxis = XboxController.Axis.kRightX.value; 
+
+  /*private final int translationAxis = driver.getAxisType(0);
+  private final int strafeAxis = driver.getAxisType(1);
+  private final int rotationAxis =  driver_2.Axis.getAxisType(0) */
 
   /* Driver Buttons */
+
+  
   private final JoystickButton zeroGyro =
       new JoystickButton(driver, XboxController.Button.kY.value);
   private final JoystickButton robotCentric =
