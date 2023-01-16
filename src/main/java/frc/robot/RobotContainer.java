@@ -22,47 +22,49 @@ import frc.robot.subsystems.*;
  */
 public class RobotContainer {
   /* Controllers */
-  private final Joystick driver = new Joystick(0);
-  private final Joystick driver_2 = new Joystick(1);
+   private final Joystick driver = new Joystick(0);
+  private final Joystick driver_1 = new Joystick(1);
+  private final Joystick driver_2 = new Joystick(2);
 
   /* Drive Controls */
-  private final int translationAxis = XboxController.Axis.kLeftY.value;
-  private final int strafeAxis = XboxController.Axis.kLeftX.value;
-  private final int rotationAxis = XboxController.Axis.kRightX.value; 
+  //private final int translationAxis = XboxController.Axis.kLeftY.value;
+  //private final int strafeAxis = XboxController.Axis.kLeftX.value;
+  //private final int rotationAxis = XboxController.Axis.kRightX.value; 
 
-  /*private final int translationAxis = driver.getAxisType(0);
-  private final int strafeAxis = driver.getAxisType(1);
-  private final int rotationAxis =  driver_2.Axis.getAxisType(0) */
+ private final int translationAxis = driver_1.getAxisType(0);
+ private final int strafeAxis = driver_1.getAxisType(1);
+ private final int rotationAxis =  driver_2.getAxisType(0); 
 
   /* Driver Buttons */
 
   
   private final JoystickButton zeroGyro =
-      new JoystickButton(driver, XboxController.Button.kY.value);
-  private final JoystickButton robotCentric =
-      new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
+      new JoystickButton(driver_1, Joystick.ButtonType.kTop.value);
+ private final JoystickButton robotCentric =
+     new JoystickButton(driver_1, Joystick.ButtonType.kTrigger.value);
 
   /* Subsystems */
   private final Swerve s_Swerve = new Swerve();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    s_Swerve.setDefaultCommand(
-        new TeleopSwerve(
-            s_Swerve,
-            () -> -driver.getRawAxis(translationAxis),
-            () -> -driver.getRawAxis(strafeAxis),
-            () -> -driver.getRawAxis(rotationAxis),
-            () -> robotCentric.getAsBoolean()));
+   /* s_Swerve.setDefaultCommand(
+       new TeleopSwerve(
+          s_Swerve,
+          () -> -driver.getRawAxis(translationAxis),
+          () -> -driver.getRawAxis(strafeAxis),
+          () -> -driver.getRawAxis(rotationAxis),
+          () -> robotCentric.getAsBoolean())); */
 
 
-    /*  s_Swerve.setDefaultCommand(
+
+        s_Swerve.setDefaultCommand(
         new TeleopSwerve(
             s_Swerve,
-            () -> -driver.getRawAxis(translationAxis),
-            () -> -driver.getRawAxis(strafeAxis),
+            () -> -driver_1.getRawAxis(translationAxis),
+            () -> -driver_1.getRawAxis(strafeAxis),
             () -> -driver_2.getRawAxis(rotationAxis),
-            () -> robotCentric.getAsBoolean())); */
+            () -> robotCentric.getAsBoolean())); 
 
     // Configure the button bindings
     configureButtonBindings();
