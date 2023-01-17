@@ -31,8 +31,8 @@ public class RobotContainer {
   //private final int strafeAxis = XboxController.Axis.kLeftX.value;
   //private final int rotationAxis = XboxController.Axis.kRightX.value; 
 
- private final int translationAxis = 0;
- private final int strafeAxis = 1;
+ private final int translationAxis = 1;
+ private final int strafeAxis = 0;
  private final int rotationAxis =  0; 
 
   /* Driver Buttons */
