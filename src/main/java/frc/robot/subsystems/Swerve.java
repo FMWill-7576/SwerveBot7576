@@ -117,8 +117,8 @@ public class Swerve extends SubsystemBase {
   public void periodic() {
     swerveOdometry.update(getYaw(), getPositions());
     field.setRobotPose(getPose());
-    SmartDashboard.putString("Robot Heading(test)", getYaw().toString());
-    SmartDashboard.putString("Robot Location(test)", getPose().getTranslation().toString());
+    //SmartDashboard.putString("Robot Heading(test)", getYaw().toString());
+    //SmartDashboard.putString("Robot Location(test)", getPose().getTranslation().toString());
 
     for (SwerveModule mod : mSwerveMods) {
       SmartDashboard.putNumber(

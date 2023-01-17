@@ -22,7 +22,7 @@ import frc.robot.subsystems.*;
  */
 public class RobotContainer {
   /* Controllers */
-   // private final Joystick driver = new Joystick(0);
+   private final Joystick driver = new Joystick(0);
   private final Joystick driver_1 = new Joystick(2);
   private final Joystick driver_2 = new Joystick(1);
 
@@ -37,11 +37,14 @@ public class RobotContainer {
 
   /* Driver Buttons */
 
-  
   private final JoystickButton zeroGyro =
-      new JoystickButton(driver_1, Joystick.ButtonType.kTop.value);
- private final JoystickButton robotCentric =
-     new JoystickButton(driver_1, Joystick.ButtonType.kTrigger.value);
+  new JoystickButton(driver, XboxController.Button.kY.value);
+  private final JoystickButton robotCentric =
+      new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
+ // private final JoystickButton zeroGyro =
+  //    new JoystickButton(driver_1, Joystick.ButtonType.kTop.value);
+ //private final JoystickButton robotCentric =
+  //   new JoystickButton(driver_1, Joystick.ButtonType.kTrigger.value);
 
   /* Subsystems */
   private final Swerve s_Swerve = new Swerve();
