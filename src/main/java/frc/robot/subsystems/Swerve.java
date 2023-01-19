@@ -102,7 +102,12 @@ public class Swerve extends SubsystemBase {
   public void zeroGyro() {
     gyro.reset();
   }
-
+  public double getPitch() {
+    return gyro.getPitch();
+  }
+  public double getRoll() {
+    return gyro.getRoll();
+  }
   public Rotation2d getYaw() {
     return gyro.getRotation2d();
   }
@@ -130,4 +135,6 @@ public class Swerve extends SubsystemBase {
           "Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);
     }
   }
+
+ 
 }

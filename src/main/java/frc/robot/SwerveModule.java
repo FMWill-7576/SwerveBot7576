@@ -60,7 +60,7 @@ public class SwerveModule {
   }
 
   public void setDesiredState(SwerveModuleState desiredState, boolean isOpenLoop) {
-    if (Math.abs(desiredState.speedMetersPerSecond) < 0.001) { //FIXME: TESTING
+    if (Math.abs(desiredState.speedMetersPerSecond) < 0.001) { //TODO: TESTING
       driveMotor.set(0);
       angleMotor.set(0);
       return;
@@ -155,4 +155,6 @@ public class SwerveModule {
   public SwerveModulePosition getPosition(){
     return new SwerveModulePosition(driveEncoder.getPosition(), getAngle());
 }
+
+
 }
