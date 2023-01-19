@@ -60,6 +60,11 @@ public class SwerveModule {
   }
 
   public void setDesiredState(SwerveModuleState desiredState, boolean isOpenLoop) {
+    if (Math.abs(desiredState.speedMetersPerSecond) < 0.001) { //FIXME: TESTING
+      driveMotor.set(0);
+      angleMotor.set(0);
+      return;
+  }
     // Custom optimize command, since default WPILib optimize assumes continuous controller which
     // REV and CTRE are not
     desiredState = OnboardModuleState.optimize(desiredState, getState().angle);

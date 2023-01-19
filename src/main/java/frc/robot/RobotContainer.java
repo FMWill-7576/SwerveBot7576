@@ -23,8 +23,8 @@ import frc.robot.subsystems.*;
 public class RobotContainer {
   /* Controllers */
    private final Joystick driver = new Joystick(0);
-  private final Joystick driver_1 = new Joystick(2);
-  private final Joystick driver_2 = new Joystick(1);
+  private final Joystick driver_1 = new Joystick(1);
+  private final Joystick driver_2 = new Joystick(2);
 
   /* Drive Controls */
   //private final int translationAxis = XboxController.Axis.kLeftY.value;
@@ -37,12 +37,12 @@ public class RobotContainer {
 
   /* Driver Buttons */
 
-  private final JoystickButton zeroGyro =
-  new JoystickButton(driver, XboxController.Button.kY.value);
+  // private final JoystickButton zeroGyro =
+  // new JoystickButton(driver, XboxController.Button.kY.value);
   private final JoystickButton robotCentric =
-      new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
- // private final JoystickButton zeroGyro =
-  //    new JoystickButton(driver_1, Joystick.ButtonType.kTop.value);
+      new JoystickButton(driver_2, 5);
+  private final JoystickButton zeroGyro =
+      new JoystickButton(driver_2, 1);
  //private final JoystickButton robotCentric =
   //   new JoystickButton(driver_1, Joystick.ButtonType.kTrigger.value);
 
@@ -51,16 +51,7 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-   /* s_Swerve.setDefaultCommand(
-       new TeleopSwerve(
-          s_Swerve,
-          () -> -driver.getRawAxis(translationAxis),
-          () -> -driver.getRawAxis(strafeAxis),
-          () -> -driver.getRawAxis(rotationAxis),
-          () -> robotCentric.getAsBoolean())); */
-
-
-
+    
         s_Swerve.setDefaultCommand(
         new TeleopSwerve(
             s_Swerve,

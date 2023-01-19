@@ -85,10 +85,10 @@ public class Vision extends SubsystemBase{
     @Override
     public void periodic() {
 
-        x = tx.getDouble(0.0);
-        y = ty.getDouble(0.0);
-        v = tv.getDouble(0);
-        id = tid.getDouble(100);
+     double x = tx.getDouble(0.0);
+     double y = ty.getDouble(0.0);
+     double v = tv.getDouble(0.0);
+     double id = tid.getDouble(100.0);
         double[] emptyArray = new double[0];
         botpose = tbotpose.getDoubleArray(emptyArray);
 
