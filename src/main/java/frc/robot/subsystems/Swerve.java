@@ -111,7 +111,7 @@ public static double speedRate = 0.5; // TODO: CHANGE THIS
 }}
 
 public void decSpeed() {
-  if(speedRate < 1.0 ) { 
+  if(speedRate > 0.1 ) { 
   speedRate = speedRate + 0.1;
 } else {
   System.out.print("speed MIN");
@@ -138,7 +138,7 @@ public void decSpeed() {
     swerveOdometry.update(getYaw(), getPositions());
     field.setRobotPose(getPose());
     SmartDashboard.putNumber("Robot Heading",Math.IEEEremainder(gyro.getAngle(), 360));
-    SmartDashboard.putString("Robot Location", getPose().getTranslation().toString());
+    //SmartDashboard.putString("Robot Location", getPose().getTranslation().toString());
     SmartDashboard.putNumber("Speed Rate", speedRate);
 
     for (SwerveModule mod : mSwerveMods) {
