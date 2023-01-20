@@ -112,7 +112,7 @@ public static double speedRate = 0.5; // TODO: CHANGE THIS
 
 public void decSpeed() {
   if(speedRate > 0.1 ) { 
-  speedRate = speedRate + 0.1;
+  speedRate = speedRate - 0.1;
 } else {
   System.out.print("speed MIN");
 }}
