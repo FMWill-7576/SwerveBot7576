@@ -14,6 +14,7 @@ import frc.robot.autos.*;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 
+
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -25,6 +26,7 @@ public class RobotContainer {
    private final Joystick driver = new Joystick(0);
   private final Joystick driver_1 = new Joystick(1);
   private final Joystick driver_2 = new Joystick(2);
+  
 
   /* Drive Controls */
   //private final int translationAxis = XboxController.Axis.kLeftY.value;
@@ -34,9 +36,9 @@ public class RobotContainer {
  private final int translationAxis = 1;
  private final int strafeAxis = 0;
  private final int rotationAxis =  0; 
- 
- private final double speedRate = 0.5;
 
+ 
+ 
   /* Driver Buttons */
 
   // private final JoystickButton zeroGyro =
@@ -45,8 +47,11 @@ public class RobotContainer {
       new JoystickButton(driver_2, 5);    
   private final JoystickButton zeroGyro =
       new JoystickButton(driver_2, 1);
- //private final JoystickButton robotCentric =
-  //   new JoystickButton(driver_1, Joystick.ButtonType.kTrigger.value);
+      private final JoystickButton incSpeed =
+      new JoystickButton(driver_2, 2);
+      private final JoystickButton decSpeed =
+      new JoystickButton(driver_2, 3);
+
 
   /* Subsystems */
   private final Swerve s_Swerve = new Swerve();
@@ -57,9 +62,9 @@ public class RobotContainer {
         s_Swerve.setDefaultCommand(
         new TeleopSwerve(
             s_Swerve,
-            () -> -driver_1.getRawAxis(translationAxis) * speedRate,
-            () -> -driver_1.getRawAxis(strafeAxis) * speedRate,
-            () -> -driver_2.getRawAxis(rotationAxis) * speedRate,
+            () -> -driver_1.getRawAxis(translationAxis) * Swerve.speedRate,
+            () -> -driver_1.getRawAxis(strafeAxis) * Swerve.speedRate,
+            () -> -driver_2.getRawAxis(rotationAxis) * Swerve.speedRate,
             () -> robotCentric.getAsBoolean())); 
 
     // Configure the button bindings
@@ -75,6 +80,8 @@ public class RobotContainer {
   private void configureButtonBindings() {
     /* Driver Buttons */
     zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
+    incSpeed.onTrue(new InstantCommand(() -> s_Swerve.incSpeed()));
+    decSpeed.onTrue(new InstantCommand(() -> s_Swerve.decSpeed()));
   }
 
   /**

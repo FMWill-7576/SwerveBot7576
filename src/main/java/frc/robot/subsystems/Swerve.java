@@ -102,6 +102,20 @@ public class Swerve extends SubsystemBase {
   public void zeroGyro() {
     gyro.reset();
   }
+public static double speedRate = 0.5; // TODO: CHANGE THIS
+ public void incSpeed() {
+  if(speedRate < 1.0 ) { 
+  speedRate = speedRate + 0.1;
+} else {
+  System.out.print("speed MAX");
+}}
+
+public void decSpeed() {
+  if(speedRate < 1.0 ) { 
+  speedRate = speedRate + 0.1;
+} else {
+  System.out.print("speed MIN");
+}}
   public double getPitch() {
     return gyro.getPitch();
   }
@@ -125,6 +139,7 @@ public class Swerve extends SubsystemBase {
     field.setRobotPose(getPose());
     SmartDashboard.putNumber("Robot Heading",Math.IEEEremainder(gyro.getAngle(), 360));
     SmartDashboard.putString("Robot Location", getPose().getTranslation().toString());
+    SmartDashboard.putNumber("Speed Rate", speedRate);
 
     for (SwerveModule mod : mSwerveMods) {
       SmartDashboard.putNumber(
