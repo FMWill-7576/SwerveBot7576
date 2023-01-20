@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import java.util.List;
+
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.wpilibj.SPI;
@@ -99,10 +101,16 @@ public class Swerve extends SubsystemBase {
     return positions;
 }
 
+
+
   public void zeroGyro() {
     gyro.reset();
   }
+
+ 
 public static double speedRate = 0.5; // TODO: CHANGE THIS
+
+
  public void incSpeed() {
   if(speedRate < 1.0 ) { 
   speedRate = speedRate + 0.1;
@@ -116,6 +124,7 @@ public void decSpeed() {
 } else {
   System.out.print("speed MIN");
 }}
+
   public double getPitch() {
     return gyro.getPitch();
   }
@@ -132,6 +141,8 @@ public void decSpeed() {
   } */
 
 
+
+ 
 
   @Override
   public void periodic() {
