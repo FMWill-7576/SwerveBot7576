@@ -19,6 +19,7 @@ public class SliderCommand extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
 
     this.s_Slider = s_Slider;
+    this.slideSup = slideSup;
     addRequirements(s_Slider);
   }
 

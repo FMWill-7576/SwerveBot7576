@@ -17,10 +17,14 @@ public class ArmCommand extends CommandBase {
   
   /** Creates a new ArmCommand. */
   public ArmCommand(
-    Arm s_Sarm, DoubleSupplier armSup, VictorSPXControlMode controlMode) {
+      Arm s_Sarm,
+      DoubleSupplier armSup,
+      VictorSPXControlMode controlMode) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.s_Arm = s_Arm;
     addRequirements(s_Arm);
+    this.armSup = armSup;
+    this.controlMode = controlMode;
   }
 
   // Called when the command is initially scheduled.

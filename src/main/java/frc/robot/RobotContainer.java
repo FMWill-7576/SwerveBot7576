@@ -73,15 +73,15 @@ public class RobotContainer {
          s_Slider.setDefaultCommand(
           new SliderCommand(
             s_Slider,
-            () -> driver.getRawAxis(slideAxis)* Slider.speedRate)) ;
+            () -> driver.getRawAxis(slideAxis) * Slider.speedRate)) ;
 
 
          s_Arm.setDefaultCommand(
           new ArmCommand(
             s_Arm,
-           () -> driver.getRawAxis(armAxis)* Arm.speedRate, VictorSPXControlMode.PercentOutput)) ;
+           () -> driver.getRawAxis(armAxis) * Arm.speedRate, VictorSPXControlMode.PercentOutput)) ;
 
-           
+
 
     // Configure the button bindings
     configureButtonBindings();
