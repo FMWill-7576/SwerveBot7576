@@ -70,7 +70,7 @@ public class RobotContainer {
          s_Slider.setDefaultCommand(
           new SliderCommand(
             s_Slider,
-            () -> driver.getRawAxis(slideAxis))) ;
+            () -> driver.getRawAxis(slideAxis)* Slider.speedRate)) ;
 
     // Configure the button bindings
     configureButtonBindings();
