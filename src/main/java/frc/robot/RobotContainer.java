@@ -5,6 +5,8 @@
 package frc.robot;
 
 
+import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -32,7 +34,7 @@ public class RobotContainer {
   /* Drive Controls */
   private final int slideAxis = XboxController.Axis.kLeftY.value;
   //private final int strafeAxis = XboxController.Axis.kLeftX.value;
-  //private final int rotationAxis = XboxController.Axis.kRightX.value; 
+  private final int armAxis = XboxController.Axis.kRightX.value; 
 
  private final int translationAxis = 1;
  private final int strafeAxis = 0;
@@ -55,6 +57,7 @@ public class RobotContainer {
   /* Subsystems */
   private final Swerve s_Swerve = new Swerve();
   private final Slider s_Slider = new Slider();
+  private final Arm s_Arm = new Arm();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -71,6 +74,14 @@ public class RobotContainer {
           new SliderCommand(
             s_Slider,
             () -> driver.getRawAxis(slideAxis)* Slider.speedRate)) ;
+
+
+         s_Arm.setDefaultCommand(
+          new ArmCommand(
+            s_Arm,
+           () -> driver.getRawAxis(armAxis)* Arm.speedRate, VictorSPXControlMode.PercentOutput)) ;
+
+           
 
     // Configure the button bindings
     configureButtonBindings();

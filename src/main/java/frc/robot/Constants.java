@@ -1,5 +1,7 @@
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.VictorSPXConfiguration;
 import com.revrobotics.CANSparkMax.IdleMode;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform3d;
@@ -14,6 +16,21 @@ import edu.wpi.first.math.geometry.Rotation3d;
 
 
 public final class Constants {
+  public static final class Arm {
+    public static final int armMotorID = 99 ;
+    public static final double armKP = 0.03 ;
+    public static final double armKI = 0.0 ;
+    public static final double armKD = 0.0 ;
+    public static final double armKFF = 0.0 ;
+    public static final  NeutralMode  armNeutralMode = NeutralMode.Brake;
+    public static final boolean armInvert = false ;
+    public static final double voltageComp = 12.0 ;
+    public static final Boolean voltageCompBoolean = true ;
+    public static final int armContinuousCurrentLimit = 60;
+
+  }
+
+
   public static final class Slider {
   public static final int slideMotorID = 999;
   public static final double slideKP = 0.03;
