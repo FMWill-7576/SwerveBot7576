@@ -17,6 +17,7 @@ import edu.wpi.first.math.geometry.Rotation3d;
 public final class Constants {
   public static final class Gripper {
     public static final int gripperMotorID = 99 ;
+    public static final int pistonID = 2;
     public static final double gripperKP = 0.03 ;
     public static final double gripperKI = 0.0 ;
     public static final double gripperKD = 0.0 ;

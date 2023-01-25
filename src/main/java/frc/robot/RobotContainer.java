@@ -34,7 +34,7 @@ public class RobotContainer {
   /* Drive Controls */
   private final int slideAxis = XboxController.Axis.kLeftY.value;
   //private final int strafeAxis = XboxController.Axis.kLeftX.value;
-  private final int armAxis = XboxController.Axis.kRightX.value; 
+  private final int armAxis = XboxController.Axis.kRightY.value; 
 
  private final int translationAxis = 1;
  private final int strafeAxis = 0;
@@ -49,6 +49,8 @@ public class RobotContainer {
       private final JoystickButton incSpeed = new JoystickButton(driver_2, 2);
       private final JoystickButton decSpeed = new JoystickButton(driver_2, 3);
       private final JoystickButton grip = new JoystickButton(driver, XboxController.Button.kY.value);
+      private final JoystickButton pistonOn = new JoystickButton(driver, XboxController.Button.kX.value);
+      private final JoystickButton pistonOff = new JoystickButton(driver, XboxController.Button.kA.value);
 
 
 
@@ -97,8 +99,10 @@ public class RobotContainer {
     zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
     incSpeed.whileTrue(new InstantCommand(() -> s_Swerve.incSpeed()));
     decSpeed.whileTrue(new InstantCommand(() -> s_Swerve.decSpeed()));
-    grip.onTrue(new InstantCommand(() -> s_Gripper.grip(VictorSPXControlMode.PercentOutput,0.5)));
+    grip.onTrue(new InstantCommand(() -> s_Gripper.grip(VictorSPXControlMode.PercentOutput, Gripper.speedRate)));
     grip.onFalse(new InstantCommand(() -> s_Gripper.grip(VictorSPXControlMode.PercentOutput,0.0)));
+    pistonOn.onTrue(new InstantCommand(() -> s_Gripper.pistonOn()));
+    pistonOff.onTrue(new InstantCommand(() -> s_Gripper.pistonOff()));
   }
 
   /**
