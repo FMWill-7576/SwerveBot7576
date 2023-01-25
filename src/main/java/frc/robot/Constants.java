@@ -1,7 +1,6 @@
 package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.VictorSPXConfiguration;
 import com.revrobotics.CANSparkMax.IdleMode;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform3d;
@@ -16,6 +15,21 @@ import edu.wpi.first.math.geometry.Rotation3d;
 
 
 public final class Constants {
+  public static final class Gripper {
+    public static final int gripperMotorID = 99 ;
+    public static final double gripperKP = 0.03 ;
+    public static final double gripperKI = 0.0 ;
+    public static final double gripperKD = 0.0 ;
+    public static final double gripperKFF = 0.0 ;
+    public static final  NeutralMode  gripperNeutralMode = NeutralMode.Brake;
+    public static final boolean gripperInvert = false ;
+    public static final double voltageComp = 12.0 ;
+    public static final Boolean voltageCompBoolean = true ;
+    public static final int gripperContinuousCurrentLimit = 60;
+
+  }
+
+
   public static final class Arm {
     public static final int armMotorID = 99 ;
     public static final double armKP = 0.03 ;

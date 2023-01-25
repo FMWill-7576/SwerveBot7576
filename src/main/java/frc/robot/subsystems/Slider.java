@@ -32,7 +32,7 @@ public void slide(double slidePercentage){
 
       public void slideMotorConfig() { 
         slideMotor.restoreFactoryDefaults();
-        CANSparkMaxUtil.setCANSparkMaxBusUsage(slideMotor, Usage.kPositionOnly);
+        CANSparkMaxUtil.setCANSparkMaxBusUsage(slideMotor, Usage.kAll);
         slideMotor.setSmartCurrentLimit(Constants.Slider.slideContinuousCurrentLimit);
         slideMotor.setInverted(Constants.Slider.slideInvert);
         slideMotor.setIdleMode(Constants.Slider.slideNeutralMode);

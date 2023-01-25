@@ -44,20 +44,19 @@ public class RobotContainer {
 
   // private final JoystickButton zeroGyro =
   // new JoystickButton(driver, XboxController.Button.kY.value);
-  private final JoystickButton robotCentric =
-      new JoystickButton(driver_2, 5);    
-  private final JoystickButton zeroGyro =
-      new JoystickButton(driver_2, 1);
-      private final JoystickButton incSpeed =
-      new JoystickButton(driver_2, 2);
-      private final JoystickButton decSpeed =
-      new JoystickButton(driver_2, 3);
+      private final JoystickButton robotCentric = new JoystickButton(driver_2, 5);    
+      private final JoystickButton zeroGyro = new JoystickButton(driver_2, 1);
+      private final JoystickButton incSpeed = new JoystickButton(driver_2, 2);
+      private final JoystickButton decSpeed = new JoystickButton(driver_2, 3);
+      private final JoystickButton grip = new JoystickButton(driver, XboxController.Button.kY.value);
+
 
 
   /* Subsystems */
   private final Swerve s_Swerve = new Swerve();
   private final Slider s_Slider = new Slider();
   private final Arm s_Arm = new Arm();
+  private final Gripper s_Gripper = new Gripper();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -98,6 +97,8 @@ public class RobotContainer {
     zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
     incSpeed.whileTrue(new InstantCommand(() -> s_Swerve.incSpeed()));
     decSpeed.whileTrue(new InstantCommand(() -> s_Swerve.decSpeed()));
+    grip.onTrue(new InstantCommand(() -> s_Gripper.grip(VictorSPXControlMode.PercentOutput,0.5)));
+    grip.onFalse(new InstantCommand(() -> s_Gripper.grip(VictorSPXControlMode.PercentOutput,0.0)));
   }
 
   /**
