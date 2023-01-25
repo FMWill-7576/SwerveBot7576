@@ -30,7 +30,7 @@ public class RobotContainer {
   
 
   /* Drive Controls */
-  //private final int translationAxis = XboxController.Axis.kLeftY.value;
+  private final int slideAxis = XboxController.Axis.kLeftY.value;
   //private final int strafeAxis = XboxController.Axis.kLeftX.value;
   //private final int rotationAxis = XboxController.Axis.kRightX.value; 
 
@@ -38,8 +38,6 @@ public class RobotContainer {
  private final int strafeAxis = 0;
  private final int rotationAxis =  0; 
 
- 
- 
   /* Driver Buttons */
 
   // private final JoystickButton zeroGyro =
@@ -56,6 +54,7 @@ public class RobotContainer {
 
   /* Subsystems */
   private final Swerve s_Swerve = new Swerve();
+  private final Slider s_Slider = new Slider();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -67,6 +66,11 @@ public class RobotContainer {
             () -> -driver_1.getRawAxis(strafeAxis) * Swerve.speedRate,
             () -> -driver_2.getRawAxis(rotationAxis) * Swerve.speedRate,
             () -> robotCentric.getAsBoolean())); 
+        
+         s_Slider.setDefaultCommand(
+          new SliderCommand(
+            s_Slider,
+            () -> driver.getRawAxis(slideAxis))) ;
 
     // Configure the button bindings
     configureButtonBindings();

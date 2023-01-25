@@ -16,7 +16,6 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.SwerveModule;
 
 public class Swerve extends SubsystemBase {
   private final AHRS gyro = new AHRS(SPI.Port.kMXP); 
@@ -85,6 +84,11 @@ public class Swerve extends SubsystemBase {
     swerveOdometry.resetPosition(getYaw(), getPositions(), pose);
   }
 
+  public void xLock(){
+
+
+  }
+
   public SwerveModuleState[] getStates() {
     SwerveModuleState[] states = new SwerveModuleState[4];
     for (SwerveModule mod : mSwerveMods) {
@@ -108,7 +112,7 @@ public class Swerve extends SubsystemBase {
   }
 
  
-public static double speedRate = 0.5; // TODO: CHANGE THIS
+public static double speedRate = 1.0 ; 
 
 
  public void incSpeed() {

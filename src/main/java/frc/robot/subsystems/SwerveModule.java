@@ -1,4 +1,4 @@
-package frc.robot;
+package frc.robot.subsystems;
 
 
 import com.ctre.phoenix.sensors.CANCoder;
@@ -17,6 +17,9 @@ import frc.lib.util.CANCoderUtil;
 import frc.lib.util.CANCoderUtil.CCUsage;
 import frc.lib.util.CANSparkMaxUtil;
 import frc.lib.util.CANSparkMaxUtil.Usage;
+import frc.robot.Constants;
+import frc.robot.Robot;
+import frc.robot.Constants.Swerve;
 
 public class SwerveModule {
   public int moduleNumber;

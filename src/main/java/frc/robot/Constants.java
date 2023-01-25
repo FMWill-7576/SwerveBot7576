@@ -14,7 +14,18 @@ import edu.wpi.first.math.geometry.Rotation3d;
 
 
 public final class Constants {
+  public static final class Slider {
+  public static final int slideMotorID = 999;
+  public static final double slideKP = 0.03;
+  public static final double slideKI = 0.0;
+  public static final double slideKD = 0.0;
+  public static final double slideKFF = 0.0;
+  public static final IdleMode slideNeutralMode = IdleMode.kBrake;
+  public static final boolean slideInvert = false;
+  public static final double voltageComp = 12.0;
+  public static final int slideContinuousCurrentLimit = 60;
   
+  }
   public static final class Swerve {
     public static final double stickDeadband = 0.1;
 
