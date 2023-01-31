@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -80,8 +81,8 @@ public class RobotContainer {
   private void configureButtonBindings() {
     /* Driver Buttons */
     zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
-    incSpeed.onTrue(new InstantCommand(() -> s_Swerve.incSpeed()));
-    decSpeed.onTrue(new InstantCommand(() -> s_Swerve.decSpeed()));
+    incSpeed.whileTrue(new InstantCommand(() -> s_Swerve.incSpeed()));
+    decSpeed.whileTrue(new InstantCommand(() -> s_Swerve.decSpeed()));
   }
 
   /**
