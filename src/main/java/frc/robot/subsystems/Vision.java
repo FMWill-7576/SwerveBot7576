@@ -15,6 +15,7 @@ public class Vision extends SubsystemBase{
     private NetworkTableEntry ty;
     private NetworkTableEntry tid;
     private NetworkTableEntry tv;
+    private NetworkTableEntry ta;
     private NetworkTable table;
     private double x;
     private double y;
@@ -28,6 +29,7 @@ public class Vision extends SubsystemBase{
         table = NetworkTableInstance.getDefault().getTable("limelight");
         tx = table.getEntry("tx");
         ty = table.getEntry("ty");
+        ta = table.getEntry("ta");
         tv = table.getEntry("tv");
         tid = table.getEntry("tid");
         tbotpose = table.getEntry("botpose");

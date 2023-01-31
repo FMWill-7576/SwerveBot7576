@@ -27,18 +27,21 @@ public class exampleAuto extends SequentialCommandGroup {
     Trajectory exampleTrajectory =
         TrajectoryGenerator.generateTrajectory(
             // Start at the origin facing the +X direction
-            new Pose2d(0, 0, new Rotation2d(0)),
-            // Pass through these two interior waypoints, making an 's' curve path
-            List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
-            // End 3 meters straight ahead of where we started, facing -forward- backward
-            new Pose2d(3, 0, new Rotation2d(180)),
+            new Pose2d(0.0, 0.0, new Rotation2d(0.0)),
+            // Pass through these two  waypoints
+            List.of(
+                new Translation2d(2.0, 0.0), 
+                new Translation2d(3.0, 0.0)
+                ),
+            // End  where we started, facing backward
+            new Pose2d(0.0, 0.0, new Rotation2d(3.15)),
             config);
 
     var thetaController =
         new ProfiledPIDController(
             Constants.AutoConstants.kPThetaController,
-            0,
-            0,
+            0.0,
+            0.1,
             Constants.AutoConstants.kThetaControllerConstraints);
     thetaController.enableContinuousInput(-Math.PI, Math.PI);
 
@@ -47,8 +50,8 @@ public class exampleAuto extends SequentialCommandGroup {
             exampleTrajectory,
             s_Swerve::getPose,
             Constants.Swerve.swerveKinematics,
-            new PIDController(Constants.AutoConstants.kPXController, 0, 0),
-            new PIDController(Constants.AutoConstants.kPYController, 0, 0),
+            new PIDController(Constants.AutoConstants.kPXController, 0.0, 0.15),
+            new PIDController(Constants.AutoConstants.kPYController, 0.0, 0.15),
             thetaController,
             s_Swerve::setModuleStates,
             s_Swerve);

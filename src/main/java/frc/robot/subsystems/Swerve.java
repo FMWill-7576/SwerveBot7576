@@ -150,7 +150,7 @@ public void decSpeed() {
     field.setRobotPose(getPose());
     SmartDashboard.putNumber("Robot Heading",Math.IEEEremainder(gyro.getAngle(), 360));
     //SmartDashboard.putString("Robot Location", getPose().getTranslation().toString());
-    SmartDashboard.putNumber("Speed Rate", speedRate);
+    SmartDashboard.putNumber("Speed Rate", speedRate-0.1);
 
     for (SwerveModule mod : mSwerveMods) {
       SmartDashboard.putNumber(
