@@ -17,7 +17,7 @@ public class ArmCommand extends CommandBase {
   
   /** Creates a new ArmCommand. */
   public ArmCommand(
-      Arm s_Sarm,
+      Arm s_Arm,
       DoubleSupplier armSup,
       VictorSPXControlMode controlMode) {
     // Use addRequirements() here to declare subsystem dependencies.
