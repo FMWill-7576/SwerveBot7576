@@ -8,8 +8,6 @@ import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -19,12 +17,11 @@ public class Gripper extends SubsystemBase {
     private VictorSPX gripperMotor2;
     private PIDController gripperController1;
     private PIDController gripperController2;
-    private Solenoid piston;
+;
   /** Creates a new Gripper. */
   public Gripper() { 
         gripperMotor1 = new VictorSPX(Constants.Gripper.gripperMotorID);
         gripperMotor2 = new VictorSPX(Constants.Gripper.gripperMotorID);
-        piston = new Solenoid(PneumaticsModuleType.CTREPCM,Constants.Gripper.pistonID);
         gripperMotorConfig();
        }
 
@@ -34,13 +31,7 @@ public class Gripper extends SubsystemBase {
     gripperMotor2.set(controlMode, gripperPercentage);
         } 
 
-       
-    public void pistonOn(){
-        piston.set(true); 
-    }
-    public void pistonOff(){
-        piston.set(false);
-    }
+      
 
   public void gripperMotorConfig() { 
     gripperMotor1.configFactoryDefault();

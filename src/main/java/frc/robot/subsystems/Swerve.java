@@ -57,8 +57,16 @@ public class Swerve extends SubsystemBase {
         Constants.Swerve.swerveKinematics.toSwerveModuleStates(
             fieldRelative
                 ? ChassisSpeeds.fromFieldRelativeSpeeds(
-                    translation.getX(), translation.getY(), rotation, getYaw())
-                : new ChassisSpeeds(translation.getX(), translation.getY(), rotation));
+                    translation.getX(),
+                    translation.getY(),
+                    rotation,
+                    getYaw()
+                    )
+                : new ChassisSpeeds(
+                  translation.getX(), 
+                  translation.getY(), 
+                  rotation)
+                  );
     SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.Swerve.maxSpeed);
 
     for (SwerveModule mod : mSwerveMods) {
@@ -111,22 +119,22 @@ public class Swerve extends SubsystemBase {
   }
 
  
-public static double speedRate = 1.0 ; 
+  public static double speedRateSwerve = 0.5; 
 
 
- public void incSpeed() {
-  if(speedRate < 1.0 ) { 
-  speedRate = speedRate + 0.1;
-} else {
-  System.out.print("speed MAX");
-}}
-
-public void decSpeed() {
-  if(speedRate > 0.1 ) { 
-  speedRate = speedRate - 0.1;
-} else {
-  System.out.print("speed MIN");
-}}
+  public void incSpeed() {
+   if(speedRateSwerve < 1.0 ) { 
+   speedRateSwerve = speedRateSwerve + 0.1;
+ } else {
+   System.out.print("speed MAX");
+ }}
+ 
+ public void decSpeed() {
+   if(speedRateSwerve > 0.1 ) { 
+   speedRateSwerve = speedRateSwerve - 0.1;
+ } else {
+   System.out.print("speed MIN");
+ }}
 
   public double getPitch() {
     return gyro.getPitch();
@@ -153,7 +161,7 @@ public void decSpeed() {
     field.setRobotPose(getPose());
     SmartDashboard.putNumber("Robot Heading",Math.IEEEremainder(gyro.getAngle(), 360));
     //SmartDashboard.putString("Robot Location", getPose().getTranslation().toString());
-    SmartDashboard.putNumber("Speed Rate", speedRate);
+    SmartDashboard.putNumber("Speed Rate", speedRateSwerve);
 
     for (SwerveModule mod : mSwerveMods) {
       SmartDashboard.putNumber(

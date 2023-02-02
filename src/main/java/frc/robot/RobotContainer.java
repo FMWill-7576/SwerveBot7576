@@ -49,8 +49,7 @@ public class RobotContainer {
       private final JoystickButton incSpeed = new JoystickButton(driver_2, 2);
       private final JoystickButton decSpeed = new JoystickButton(driver_2, 3);
       private final JoystickButton grip = new JoystickButton(driver, XboxController.Button.kY.value);
-      private final JoystickButton pistonOn = new JoystickButton(driver, XboxController.Button.kX.value);
-      private final JoystickButton pistonOff = new JoystickButton(driver, XboxController.Button.kA.value);
+
 
 
 
@@ -66,9 +65,9 @@ public class RobotContainer {
         s_Swerve.setDefaultCommand(
         new TeleopSwerve(
             s_Swerve,
-            () -> -driver_1.getRawAxis(translationAxis) * Swerve.speedRate,
-            () -> -driver_1.getRawAxis(strafeAxis) * Swerve.speedRate,
-            () -> -driver_2.getRawAxis(rotationAxis) * Swerve.speedRate,
+            () -> -driver_1.getRawAxis(translationAxis) * Swerve.speedRateSwerve,
+            () -> -driver_1.getRawAxis(strafeAxis) * Swerve.speedRateSwerve,
+            () -> -driver_2.getRawAxis(rotationAxis) * Swerve.speedRateSwerve,
             () -> robotCentric.getAsBoolean())); 
         
          s_Slider.setDefaultCommand(
@@ -101,8 +100,7 @@ public class RobotContainer {
     decSpeed.whileTrue(new InstantCommand(() -> s_Swerve.decSpeed()));
     grip.onTrue(new InstantCommand(() -> s_Gripper.grip(VictorSPXControlMode.PercentOutput, Gripper.speedRate)));
     grip.onFalse(new InstantCommand(() -> s_Gripper.grip(VictorSPXControlMode.PercentOutput,0.0)));
-    pistonOn.onTrue(new InstantCommand(() -> s_Gripper.pistonOn()));
-    pistonOff.onTrue(new InstantCommand(() -> s_Gripper.pistonOff()));
+
   }
 
   /**
