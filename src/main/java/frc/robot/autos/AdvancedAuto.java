@@ -14,7 +14,7 @@ public class AdvancedAuto extends SequentialCommandGroup {
    * Score the preloaded cube, then pick up another cube and score it, then drive onto the charging station and self-balance
    */
   public AdvancedAuto() {
-    addCommands(new exampleAuto(null));
+    addCommands(new exampleAuto(null)); //test
   
   }
 }
