@@ -61,7 +61,7 @@ public final class Constants {
   public static final class Swerve {
     public static final double stickDeadband = 0.07;
 
-    //public static final int pigeonID = 6;
+   
     public static final boolean invertGyro = true; // Always ensure Gyro is CCW+ CW-
 
     /* Drivetrain Constants */
