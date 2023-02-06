@@ -104,7 +104,7 @@ public class exampleAuto extends SequentialCommandGroup {
             new Translation2d(0, 0),
             0,
             false,
-            true)),
+            false)),
 
      new WaitCommand(2.5),
 

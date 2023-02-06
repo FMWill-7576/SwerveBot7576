@@ -119,6 +119,8 @@ public class SwerveModule {
     driveMotor.enableVoltageCompensation(Constants.Swerve.voltageComp);
     driveMotor.burnFlash();
     driveEncoder.setPosition(0.0);
+    driveMotor.setOpenLoopRampRate(Constants.Swerve.openLoopRamp);
+    driveMotor.setClosedLoopRampRate(Constants.Swerve.closedLoopRamp);
   }
 
   private void setSpeed(SwerveModuleState desiredState, boolean isOpenLoop) {
