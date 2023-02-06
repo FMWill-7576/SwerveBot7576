@@ -26,13 +26,13 @@ public class exampleAuto extends SequentialCommandGroup {
 
     // An example trajectory to follow.  All units in meters.
 
-    Trajectory testTrajectory =
+    /* Trajectory testTrajectory =
          TrajectoryGenerator.generateTrajectory(List.of(
             new Pose2d(0.0, 0.0, new Rotation2d(Math.toRadians(0.0))),
             new Pose2d(0.0, 0.0, new Rotation2d(Math.toRadians(0.0))),
             new Pose2d(0.0, 0.0, new Rotation2d(Math.toRadians(0.0))),
             new Pose2d(0.0, 0.0, new Rotation2d(Math.toRadians(0.0)))
-         ), config);    
+         ), config);    */
 
 
 
@@ -40,26 +40,26 @@ public class exampleAuto extends SequentialCommandGroup {
         TrajectoryGenerator.generateTrajectory(
             // Start at the origin facing the +X direction
             new Pose2d(0.0, 0.0, new Rotation2d(Math.toRadians(0.0))),
-            // Pass through these two  waypoints
+            // Pass through the  waypoints
             List.of(    
-                new Translation2d(-1.0, 0.0), 
-                new Translation2d(-1.5, 0.0)
+                new Translation2d(-1.0, 0.5), 
+                new Translation2d(1.5, 0.0)
                 ),
             // end
-            new Pose2d(2.0, 0.0, new Rotation2d(Math.toRadians(0.0))),
+            new Pose2d(2.0, 0.0, new Rotation2d(Math.toRadians(180))),
             config);
      
     Trajectory exampleTrajectory2 =
             TrajectoryGenerator.generateTrajectory(
-                // Start at the origin facing the +X direction
-                new Pose2d(2.0, 0.0, new Rotation2d(Math.toRadians(0.0))),
+                // Start at the origin facing the +X direction++
+                new Pose2d(2.0, 0.0, new Rotation2d(Math.toRadians(180))),
                 // Pass through these two  waypoints
                 List.of(
-                    new Translation2d(1.5, 0.0), 
-                    new Translation2d(1.0, 0.0)
+                    new Translation2d(1.5, 0), 
+                    new Translation2d(1.0, 0.5)
                     ),
                 // End  where we started
-                new Pose2d(0.0, 0.0, new Rotation2d(Math.toRadians(180.48))),
+                new Pose2d(0.0, 0.0, new Rotation2d(Math.toRadians(0.0))),
                 config);
                 
     // Trajectory combinedTrajectory = exampleTrajectory.concatenate(exampleTrajectory2);
@@ -95,10 +95,22 @@ public class exampleAuto extends SequentialCommandGroup {
         s_Swerve);
 
     addCommands(
-        new InstantCommand(() -> s_Swerve.resetOdometry(exampleTrajectory.getInitialPose())),
-        swerveControllerCommand,
-        new WaitCommand(2.5),
-        new InstantCommand(() -> s_Swerve.resetOdometry(exampleTrajectory2.getInitialPose())),
-        swerveControllerCommand2);
+
+     new InstantCommand(() -> s_Swerve.resetOdometry(exampleTrajectory.getInitialPose())),
+
+     swerveControllerCommand,
+
+     new InstantCommand(() -> s_Swerve.drive(
+            new Translation2d(0, 0),
+            0,
+            false,
+            true)),
+
+     new WaitCommand(2.5),
+
+     new InstantCommand(() -> s_Swerve.resetOdometry(exampleTrajectory2.getInitialPose())),
+
+     swerveControllerCommand2);
+      
   }
 }

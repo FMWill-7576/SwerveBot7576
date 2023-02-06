@@ -10,6 +10,8 @@ import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -25,6 +27,8 @@ import frc.robot.subsystems.*;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+
+
   /* Controllers */
    private final Joystick driver = new Joystick(0);
   private final Joystick driver_1 = new Joystick(1);
@@ -49,7 +53,7 @@ public class RobotContainer {
       private final JoystickButton incSpeed = new JoystickButton(driver_2, 2);
       private final JoystickButton decSpeed = new JoystickButton(driver_2, 3);
       private final JoystickButton grip = new JoystickButton(driver, XboxController.Button.kY.value);
-
+      private final JoystickButton xLock = new JoystickButton(driver_2, 4);
 
 
 
@@ -58,6 +62,11 @@ public class RobotContainer {
   private final Slider s_Slider = new Slider();
   private final Arm s_Arm = new Arm();
   private final Gripper s_Gripper = new Gripper();
+
+      // A complex auto routine that drives forward, drops a hatch, and then drives backward.
+      private final Command exampleAuto = new exampleAuto(s_Swerve);
+      // A chooser for autonomous commands
+       SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -81,6 +90,11 @@ public class RobotContainer {
             s_Arm,
            () -> driver.getRawAxis(armAxis) * Arm.speedRate, VictorSPXControlMode.PercentOutput)) ;
 
+      // Add commands to the autonomous command chooser
+      m_chooser.setDefaultOption("Simple Auto", exampleAuto);
+      m_chooser.addOption("Complex Auto", exampleAuto);
+        // Put the chooser on the dashboard
+        SmartDashboard.putData("OTONOM SEÇİMİ",m_chooser);
 
 
     // Configure the button bindings
@@ -100,7 +114,7 @@ public class RobotContainer {
     decSpeed.whileTrue(new InstantCommand(() -> s_Swerve.decSpeed()));
     grip.onTrue(new InstantCommand(() -> s_Gripper.grip(VictorSPXControlMode.PercentOutput, Gripper.speedRate)));
     grip.onFalse(new InstantCommand(() -> s_Gripper.grip(VictorSPXControlMode.PercentOutput,0.0)));
-
+    xLock.whileTrue(s_Swerve.run(() -> s_Swerve.xLock()));
   }
 
   /**
@@ -110,6 +124,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new exampleAuto(s_Swerve);
+    //return new exampleAuto(s_Swerve);
+    return m_chooser.getSelected();
   }
 }

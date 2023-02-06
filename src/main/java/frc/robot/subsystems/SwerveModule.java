@@ -64,9 +64,9 @@ public class SwerveModule {
   }
 
   public void setDesiredState(SwerveModuleState desiredState, boolean isOpenLoop) {
-    if (Math.abs(desiredState.speedMetersPerSecond) < 0.001) { //TODO: TESTING
-      driveMotor.set(0);
-      angleMotor.set(0);
+    if (Math.abs(desiredState.speedMetersPerSecond) < 0.001) {
+      driveMotor.set(0); 
+      angleMotor.set(0); // TODO: kaldırılabilir
       return;
   }
     // Custom optimize command, since default WPILib optimize assumes continuous controller which

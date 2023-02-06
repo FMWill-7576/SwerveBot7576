@@ -26,7 +26,7 @@ public final class Constants {
     public static final boolean gripperInvert = false ;
     public static final double voltageComp = 12.0 ;
     public static final Boolean voltageCompBoolean = true ;
-    public static final int gripperContinuousCurrentLimit = 60;
+    public static final int gripperContinuousCurrentLimit = 40;
 
   }
 
@@ -41,7 +41,7 @@ public final class Constants {
     public static final boolean armInvert = false ;
     public static final double voltageComp = 12.0 ;
     public static final Boolean voltageCompBoolean = true ;
-    public static final int armContinuousCurrentLimit = 60;
+    public static final int armContinuousCurrentLimit = 40;
 
   }
 
@@ -55,11 +55,11 @@ public final class Constants {
   public static final IdleMode slideNeutralMode = IdleMode.kBrake;
   public static final boolean slideInvert = false;
   public static final double voltageComp = 12.0;
-  public static final int slideContinuousCurrentLimit = 60;
+  public static final int slideContinuousCurrentLimit = 40;
   
   }
   public static final class Swerve {
-    public static final double stickDeadband = 0.1;
+    public static final double stickDeadband = 0.07;
 
     //public static final int pigeonID = 6;
     public static final boolean invertGyro = true; // Always ensure Gyro is CCW+ CW-
@@ -90,7 +90,7 @@ public final class Constants {
 
     /* Swerve Current Limiting */
     public static final int angleContinuousCurrentLimit = 20;
-    public static final int driveContinuousCurrentLimit = 80;
+    public static final int driveContinuousCurrentLimit = 60;
 
     /* Angle Motor PID Values */
     public static final double angleKP = 0.03;
@@ -183,9 +183,9 @@ public final class Constants {
     public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
     public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
 
-    public static final double kPXController = 1.0;
-    public static final double kPYController = 1.0;
-    public static final double kPThetaController = 1.5;
+    public static final double kPXController = 1.5;
+    public static final double kPYController = 1.5;
+    public static final double kPThetaController = 2.48;
 
     // Constraint for the motion profilied robot angle controller
     public static final TrapezoidProfile.Constraints kThetaControllerConstraints =

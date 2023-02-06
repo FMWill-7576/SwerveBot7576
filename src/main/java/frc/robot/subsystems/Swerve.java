@@ -25,7 +25,7 @@ public class Swerve extends SubsystemBase {
   private Field2d field;
 
   public Swerve() {
-    //gyro.configFactoryDefault(); 
+     
      {
         new Thread(() -> {
             try {
@@ -34,8 +34,9 @@ public class Swerve extends SubsystemBase {
             } catch (Exception e) {
             }
         }).start();
-    }
+    } 
 
+  
     mSwerveMods =
         new SwerveModule[] {
           new SwerveModule(0, Constants.Swerve.Mod0.constants),
@@ -67,6 +68,7 @@ public class Swerve extends SubsystemBase {
                   translation.getY(), 
                   rotation)
                   );
+                  
     SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.Swerve.maxSpeed);
 
     for (SwerveModule mod : mSwerveMods) {
@@ -92,9 +94,14 @@ public class Swerve extends SubsystemBase {
   }
 
   public void xLock(){
-
-
-  }
+    SwerveModuleState[] swerveModuleStates = {
+    new SwerveModuleState(0, Rotation2d.fromDegrees(45.0)),
+    new SwerveModuleState(0, Rotation2d.fromDegrees(315.0)),
+    new SwerveModuleState(0, Rotation2d.fromDegrees(45.0)),
+    new SwerveModuleState(0, Rotation2d.fromDegrees(315.0))
+  };
+    setModuleStates(swerveModuleStates); 
+   }
 
   public SwerveModuleState[] getStates() {
     SwerveModuleState[] states = new SwerveModuleState[4];
@@ -119,7 +126,7 @@ public class Swerve extends SubsystemBase {
   }
 
  
-  public static double speedRateSwerve = 0.5; 
+  public static double speedRateSwerve = 0.7; 
 
 
   public void incSpeed() {
