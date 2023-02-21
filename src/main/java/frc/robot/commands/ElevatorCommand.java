@@ -7,20 +7,20 @@ package frc.robot.commands;
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Slider;
+import frc.robot.subsystems.Elevator;
 
-public class SliderCommand extends CommandBase {
-    Slider s_Slider;
-    private DoubleSupplier slideSup;
-  /** Creates a new SliderCommand. */
-  public SliderCommand(
-        Slider s_Slider,
-    DoubleSupplier slideSup) {
+public class ElevatorCommand extends CommandBase {
+    Elevator s_elevator;
+    private DoubleSupplier elevatorSup;
+  /** Creates a new elevatorCommand. */
+  public ElevatorCommand(
+        Elevator s_elevator,
+    DoubleSupplier elevatorSup) {
     // Use addRequirements() here to declare subsystem dependencies.
 
-    this.s_Slider = s_Slider;
-    this.slideSup = slideSup;
-    addRequirements(s_Slider);
+    this.s_elevator = s_elevator;
+    this.elevatorSup = elevatorSup;
+    addRequirements(s_elevator);
   }
 
   // Called when the command is initially scheduled.
@@ -32,7 +32,7 @@ public class SliderCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
- s_Slider.slide(slideSup.getAsDouble());
+ s_elevator.elevatorDrive(elevatorSup.getAsDouble());
   }
   // Called once the command ends or is interrupted.
   @Override

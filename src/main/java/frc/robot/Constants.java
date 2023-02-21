@@ -46,16 +46,25 @@ public final class Constants {
   }
 
 
-  public static final class Slider {
-  public static final int slideMotorID = 999;
-  public static final double slideKP = 0.03;
-  public static final double slideKI = 0.0;
-  public static final double slideKD = 0.0;
-  public static final double slideKFF = 0.0;
-  public static final IdleMode slideNeutralMode = IdleMode.kBrake;
-  public static final boolean slideInvert = false;
+  public static final class elevator {
+
+  public static final int elevatorMotorID = 999;
+
+  public static final double elevatorKP = 0.03;
+  public static final double elevatorKI = 0.0;
+  public static final double elevatorKD = 0.0;
+  public static final double elevatorKFF = 0.0;
+
+  public static final IdleMode elevatorNeutralMode = IdleMode.kBrake;
+  public static final boolean elevatorInvert = false;
+
   public static final double voltageComp = 12.0;
-  public static final int slideContinuousCurrentLimit = 40;
+  public static final int elevatorContinuousCurrentLimit = 40;
+
+  public static final double elevatorGearRatio = (11.16 / 1 ) ;
+  public static final double gearDiameter = 0.0038 ;
+  public static final double elevatorConversionPositionFactor = (gearDiameter * Math.PI) / elevatorGearRatio;
+    public static final double elevatorConversionVelocityFactor = elevatorConversionPositionFactor / 60.0;
   
   }
   public static final class Swerve {
@@ -110,8 +119,7 @@ public final class Constants {
     public static final double driveKA = 0.27;
 
     /* Drive Motor Conversion Factors */
-    public static final double driveConversionPositionFactor =
-        (wheelDiameter * Math.PI) / driveGearRatio;
+    public static final double driveConversionPositionFactor = (wheelDiameter * Math.PI) / driveGearRatio;
     public static final double driveConversionVelocityFactor = driveConversionPositionFactor / 60.0;
     public static final double angleConversionFactor = 360.0 / angleGearRatio;
 

@@ -36,7 +36,7 @@ public class RobotContainer {
   
 
   /* Drive Controls */
-  private final int slideAxis = XboxController.Axis.kLeftY.value;
+  private final int elevatorAxis = XboxController.Axis.kLeftY.value;
   //private final int strafeAxis = XboxController.Axis.kLeftX.value;
   private final int armAxis = XboxController.Axis.kRightY.value; 
 
@@ -59,7 +59,7 @@ public class RobotContainer {
 
   /* Subsystems */
   private final Swerve s_Swerve = new Swerve();
-  private final Slider s_Slider = new Slider();
+  private final Elevator s_elevator = new Elevator();
   private final Arm s_Arm = new Arm();
   private final Gripper s_Gripper = new Gripper();
 
@@ -79,10 +79,10 @@ public class RobotContainer {
             () -> -driver_2.getRawAxis(rotationAxis) * Swerve.speedRateSwerve,
             () -> robotCentric.getAsBoolean())); 
         
-         s_Slider.setDefaultCommand(
-          new SliderCommand(
-            s_Slider,
-            () -> driver.getRawAxis(slideAxis) * Slider.speedRate)) ;
+         s_elevator.setDefaultCommand(
+          new ElevatorCommand(
+            s_elevator,
+            () -> driver.getRawAxis(elevatorAxis) * Elevator.speedRate)) ;
 
 
          s_Arm.setDefaultCommand(
