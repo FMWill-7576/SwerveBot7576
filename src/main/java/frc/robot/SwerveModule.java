@@ -61,11 +61,11 @@ public class SwerveModule {
   }
 
   public void setDesiredState(SwerveModuleState desiredState, boolean isOpenLoop) {
-    if (Math.abs(desiredState.speedMetersPerSecond) < 0.001) { //TODO: TESTING
+     /*  if (Math.abs(desiredState.speedMetersPerSecond) < 0.001) { 
       driveMotor.set(0);
       angleMotor.set(0);
-      return;
-  }
+      return; 
+  } */
     // Custom optimize command, since default WPILib optimize assumes continuous controller which
     // REV and CTRE are not
     desiredState = OnboardModuleState.optimize(desiredState, getState().angle);
@@ -134,8 +134,8 @@ public class SwerveModule {
   private void setAngle(SwerveModuleState desiredState) {
     // Prevent rotating module if speed is less then 1%. Prevents jittering.
     Rotation2d angle =
-        (Math.abs(desiredState.speedMetersPerSecond) <= (Constants.Swerve.maxSpeed * 0.01))
-            ? lastAngle
+        (Math.abs(desiredState.speedMetersPerSecond) <= (Constants.Swerve.maxSpeed * 0.01)) 
+            ? desiredState.angle 
             : desiredState.angle;
 
     angleController.setReference(angle.getDegrees(), ControlType.kPosition);
