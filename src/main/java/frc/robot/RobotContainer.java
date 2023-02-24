@@ -5,10 +5,15 @@
 package frc.robot;
 
 
+import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.autos.*;
@@ -37,6 +42,7 @@ public class RobotContainer {
  private final int translationAxis = 1;
  private final int strafeAxis = 0;
  private final int rotationAxis =  0; 
+ private final int armAxis = XboxController.Axis.kRightY.value; 
 
  
  
@@ -45,17 +51,27 @@ public class RobotContainer {
   // private final JoystickButton zeroGyro =
   // new JoystickButton(driver, XboxController.Button.kY.value);
   private final JoystickButton robotCentric =
-      new JoystickButton(driver_2, 5);    
+      new JoystickButton(driver_2, 6);    
   private final JoystickButton zeroGyro =
       new JoystickButton(driver_2, 1);
       private final JoystickButton incSpeed =
-      new JoystickButton(driver_2, 2);
+      new JoystickButton(driver_2, 5);
       private final JoystickButton decSpeed =
       new JoystickButton(driver_2, 3);
+      private final JoystickButton xLock = 
+      new JoystickButton(driver_2, 4);
+      private final JoystickButton armTesting = 
+      new JoystickButton(driver, XboxController.Button.kY.value);
 
 
   /* Subsystems */
   private final Swerve s_Swerve = new Swerve();
+  private final Arm s_Arm = new Arm();
+
+    // A complex auto routine that drives forward, drops a hatch, and then drives backward.
+    private final Command exampleAuto = new exampleAuto(s_Swerve);
+    // A chooser for autonomous commands
+     SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -63,10 +79,21 @@ public class RobotContainer {
         s_Swerve.setDefaultCommand(
         new TeleopSwerve(
             s_Swerve,
-            () -> -driver_1.getRawAxis(translationAxis) * Swerve.speedRate,
-            () -> -driver_1.getRawAxis(strafeAxis) * Swerve.speedRate,
-            () -> -driver_2.getRawAxis(rotationAxis) * Swerve.speedRate,
+            () -> -driver_1.getRawAxis(translationAxis) * Swerve.speedRateSwerve,
+            () -> -driver_1.getRawAxis(strafeAxis) * Swerve.speedRateSwerve,
+            () -> -driver_2.getRawAxis(rotationAxis) * Swerve.speedRateSwerve,
             () -> robotCentric.getAsBoolean())); 
+
+        s_Arm.setDefaultCommand(
+          new ArmCommand(
+            s_Arm,
+           () -> driver.getRawAxis(armAxis) * Arm.armSpeedRate)) ;
+         
+            // Add commands to the autonomous command chooser
+      m_chooser.setDefaultOption("Simple Auto", exampleAuto);
+      m_chooser.addOption("Complex Auto", exampleAuto);
+        // Put the chooser on the dashboard
+        SmartDashboard.putData("OTONOM SEÇİMİ", m_chooser);
 
     // Configure the button bindings
     configureButtonBindings();
@@ -83,8 +110,10 @@ public class RobotContainer {
     zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
     incSpeed.whileTrue(new InstantCommand(() -> s_Swerve.incSpeed()));
     decSpeed.whileTrue(new InstantCommand(() -> s_Swerve.decSpeed()));
+    // xLock.whileTrue(new InstantCommand(() -> s_Swerve.xLock()));
+    xLock.whileTrue(s_Swerve.run(() -> s_Swerve.xLock()));
+    armTesting.onTrue(s_Arm.runOnce(() -> s_Arm.armTesting()));
   }
-
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
@@ -92,6 +121,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new exampleAuto(s_Swerve);
+    //return new exampleAuto(s_Swerve);
+    return m_chooser.getSelected();
   }
 }
