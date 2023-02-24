@@ -36,7 +36,11 @@ public class Swerve extends SubsystemBase {
             }
         }).start();
     } */
-   gyro.reset();
+    try {
+      Thread.sleep(1000);
+      gyro.reset();
+  } catch (Exception e) {
+  }
 
     mSwerveMods =
         new SwerveModule[] {
