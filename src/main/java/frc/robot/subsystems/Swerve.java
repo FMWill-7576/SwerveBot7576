@@ -1,10 +1,8 @@
 package frc.robot.subsystems;
-
-import java.util.List;
-
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -25,6 +23,11 @@ public class Swerve extends SubsystemBase {
   private SwerveModule[] mSwerveMods;
 
   private Field2d field;
+  public ProfiledPIDController headingController = new ProfiledPIDController(
+    3.0, 
+    0, 
+    0.15,
+    Constants.AutoConstants.kThetaControllerConstraints);
 
   public Swerve() {
      /*  {
@@ -79,6 +82,30 @@ public class Swerve extends SubsystemBase {
       mod.setDesiredState(swerveModuleStates[mod.moduleNumber], isOpenLoop);
     }
   }
+  
+  public void driveHeadingLocked(
+      Translation2d translation, double theta, boolean fieldRelative, boolean isOpenLoop) {
+         double current = getYaw().getRadians();
+    SwerveModuleState[] swerveModuleStates =
+        Constants.Swerve.swerveKinematics.toSwerveModuleStates(
+            fieldRelative
+                ? ChassisSpeeds.fromFieldRelativeSpeeds(
+                    translation.getX(),
+                    translation.getY(),
+                    headingController.calculate(getYaw().getRadians(), current),
+                    getYaw()
+                    )
+                : new ChassisSpeeds(
+                  translation.getX(), 
+                  translation.getY(), 
+                  theta)
+                  );
+    SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.Swerve.maxSpeed);
+
+    for (SwerveModule mod : mSwerveMods) {
+      mod.setDesiredState(swerveModuleStates[mod.moduleNumber], isOpenLoop);
+    }
+  }
 
   /* Used by SwerveControllerCommand in Auto */
   public void setModuleStates(SwerveModuleState[] desiredStates) {
@@ -115,13 +142,13 @@ public class Swerve extends SubsystemBase {
 
  public void xLock(){
   SwerveModuleState[] swerveModuleStates2 = {
-  new SwerveModuleState(0.0, Rotation2d.fromDegrees(315.0)),
   new SwerveModuleState(0.0, Rotation2d.fromDegrees(45.0)),
+  new SwerveModuleState(0.0, Rotation2d.fromDegrees(315.0)),
   new SwerveModuleState(0.0, Rotation2d.fromDegrees(315.0)),
   new SwerveModuleState(0.0, Rotation2d.fromDegrees(45.0))
 };
  for (SwerveModule mod : mSwerveMods) {
-   mod.setDesiredState(swerveModuleStates2[mod.moduleNumber], true);
+   mod.setDesiredStateForXlock(swerveModuleStates2[mod.moduleNumber], true);
 } 
  }
 
@@ -134,18 +161,20 @@ public static double speedRateSwerve = 0.5;
 
 
  public void incSpeed() {
-  if(speedRateSwerve < 1.0 ) { 
+  if(speedRateSwerve < 0.95 ) { 
   speedRateSwerve = speedRateSwerve + 0.1;
 } else {
   System.out.print("speed MAX");
-}}
+ }
+}
 
 public void decSpeed() {
-  if(speedRateSwerve > 0.1 ) { 
+  if(speedRateSwerve > 0.15 ) { 
   speedRateSwerve = speedRateSwerve - 0.1;
 } else {
   System.out.print("speed MIN");
-}}
+ }
+}
 
   public double getPitch() {
     return gyro.getPitch();
@@ -164,14 +193,12 @@ public void decSpeed() {
 
 
 
- 
-
   @Override
   public void periodic() {
     swerveOdometry.update(getYaw(), getPositions());
     field.setRobotPose(getPose());
     SmartDashboard.putNumber("Robot Heading",Math.IEEEremainder(gyro.getAngle(), 360));
-    //SmartDashboard.putString("Robot Location", getPose().getTranslation().toString());
+    SmartDashboard.putString("Robot Location", getPose().toString());
     SmartDashboard.putNumber("Speed Rate", speedRateSwerve);
 
     for (SwerveModule mod : mSwerveMods) {
@@ -181,6 +208,8 @@ public void decSpeed() {
           "Mod " + mod.moduleNumber + " Integrated", mod.getPosition().angle.getDegrees());
       SmartDashboard.putNumber(
           "Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);
+          SmartDashboard.putString(
+          "Mod " + mod.moduleNumber + " Position", mod.getPosition().toString());
     }
   }
 

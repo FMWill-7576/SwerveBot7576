@@ -34,7 +34,7 @@ public class exampleAuto extends SequentialCommandGroup {
             new Pose2d(0.0, 0.0, new Rotation2d(Math.toRadians(0.0)))
          ), config);    */
 
-
+ 
 
     Trajectory exampleTrajectory =
         TrajectoryGenerator.generateTrajectory(
@@ -42,21 +42,21 @@ public class exampleAuto extends SequentialCommandGroup {
             new Pose2d(0.0, 0.0, new Rotation2d(Math.toRadians(0.0))),
             // Pass through the  waypoints
             List.of(    
-                new Translation2d(-1.0, 0.5), 
-                new Translation2d(1.5, 0.0)
+                new Translation2d(1.0, 0.01), 
+                new Translation2d(2.5, 0.0)
                 ),
             // end
-            new Pose2d(2.0, 0.0, new Rotation2d(Math.toRadians(180))),
+            new Pose2d(4.0, 0.0, new Rotation2d(Math.toRadians(180))),
             config);
      
     Trajectory exampleTrajectory2 =
             TrajectoryGenerator.generateTrajectory(
                 // Start at the origin facing the +X direction++
-                new Pose2d(2.0, 0.0, new Rotation2d(Math.toRadians(180))),
+                new Pose2d(4.0, 0.0, new Rotation2d(Math.toRadians(180))),
                 // Pass through these two  waypoints
                 List.of(
-                    new Translation2d(1.5, 0), 
-                    new Translation2d(1.0, 0.5)
+                    new Translation2d(2.5, 0), 
+                    new Translation2d(1.0, 0.01)
                     ),
                 // End  where we started
                 new Pose2d(0.0, 0.0, new Rotation2d(Math.toRadians(0.0))),

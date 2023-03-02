@@ -27,6 +27,8 @@ import frc.robot.subsystems.*;
  * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
  * subsystems, commands, and button mappings) should be declared here.
  */
+
+
 public class RobotContainer {
   /* Controllers */
    private final Joystick driver = new Joystick(0);
@@ -87,13 +89,13 @@ public class RobotContainer {
         s_Arm.setDefaultCommand(
           new ArmCommand(
             s_Arm,
-           () -> driver.getRawAxis(armAxis) * Arm.armSpeedRate)) ;
+           () -> driver.getRawAxis(armAxis) * Arm.armSpeedRate + 0.08)) ;
          
             // Add commands to the autonomous command chooser
       m_chooser.setDefaultOption("Simple Auto", exampleAuto);
       m_chooser.addOption("Complex Auto", exampleAuto);
         // Put the chooser on the dashboard
-        SmartDashboard.putData("OTONOM SEÇİMİ", m_chooser);
+        SmartDashboard.putData("OTONOM", m_chooser);
 
     // Configure the button bindings
     configureButtonBindings();
@@ -112,7 +114,7 @@ public class RobotContainer {
     decSpeed.whileTrue(new InstantCommand(() -> s_Swerve.decSpeed()));
     // xLock.whileTrue(new InstantCommand(() -> s_Swerve.xLock()));
     xLock.whileTrue(s_Swerve.run(() -> s_Swerve.xLock()));
-    armTesting.onTrue(s_Arm.runOnce(() -> s_Arm.armTesting()));
+    armTesting.onTrue(s_Arm.run(() -> s_Arm.armTesting()));
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

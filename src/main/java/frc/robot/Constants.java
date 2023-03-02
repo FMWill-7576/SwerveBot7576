@@ -18,21 +18,29 @@ public final class Constants {
   
   public static final class Arm {
     public static final int armMotorID = 9 ;
+    public static final int armEncoder = 1;
+    public static final int armEncoder2 = 2;
+
+    public static final double armConversionPositionFactor = 1/71.0/7.0 ;
+
     public static final double armKP = 0.03 ;
     public static final double armKI = 0.0 ;
     public static final double armKD = 0.0 ;
     public static final double armKFF = 0.0 ;
+
     public static final  IdleMode armNeutralMode = IdleMode.kBrake ;
     public static final boolean armInvert = false ;
+
     public static final double voltageComp = 12.0 ;
     public static final Boolean voltageCompBoolean = true ;
     public static final int armContinuousCurrentLimit = 40;
-    public static final double stickDeadband = 0.08;
+
+    public static final double stickDeadband = 0.07;
 
   }
   
   public static final class Swerve {
-    public static final double stickDeadband = 0.07;
+    public static final double stickDeadband = 0.078;
 
     public static final boolean invertGyro = true; // Always ensure Gyro is CCW+ CW-
 
@@ -83,7 +91,7 @@ public final class Constants {
 
     /* Drive Motor Conversion Factors */
     public static final double driveConversionPositionFactor =
-        (wheelDiameter * Math.PI) / driveGearRatio;
+        (wheelDiameter * Math.PI) / driveGearRatio * 1.05;
     public static final double driveConversionVelocityFactor = driveConversionPositionFactor / 60.0;
     public static final double angleConversionFactor = 360.0 / angleGearRatio;
 
@@ -91,7 +99,7 @@ public final class Constants {
     public static final double maxSpeed = 4.82; // meters per second
     // public static final double maxSpeed = 5880.0 / 60.0 * 0.1633 * 0.1016 *Math.PI; // 5.1 meters per second
     //public static final double maxAngularVelocity = 11.5; 
-    public static final double maxAngularVelocity = maxSpeed/Math.hypot(trackWidth/2,wheelBase/2); //11.96
+    public static final double maxAngularVelocity = maxSpeed/Math.hypot(trackWidth/2,wheelBase/2); //11.65
     
 
     /* Neutral Modes */
@@ -113,7 +121,7 @@ public final class Constants {
       public static final int driveMotorID = 4;
       public static final int angleMotorID = 3;
       public static final int canCoderID = 0;
-      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(174.19);
+      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(286.08);
       public static final SwerveModuleConstants constants =
           new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
     }
@@ -123,7 +131,7 @@ public final class Constants {
       public static final int driveMotorID = 2;
       public static final int angleMotorID = 1;
       public static final int canCoderID = 1;
-      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(283.53);
+      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(173.0);
       public static final SwerveModuleConstants constants =
           new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
     }
@@ -133,7 +141,7 @@ public final class Constants {
       public static final int driveMotorID = 6;
       public static final int angleMotorID = 5;
       public static final int canCoderID = 2;
-      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(314.91);
+      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(318.45);
       public static final SwerveModuleConstants constants =
           new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
     }
@@ -143,15 +151,15 @@ public final class Constants {
       public static final int driveMotorID = 8;
       public static final int angleMotorID = 7;
       public static final int canCoderID = 3;
-      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(244.47);
+      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(243.7);
       public static final SwerveModuleConstants constants =
           new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
     }
   }
 
   public static final class AutoConstants {
-    public static final double kMaxSpeedMetersPerSecond = 3;
-    public static final double kMaxAccelerationMetersPerSecondSquared = 3;
+    public static final double kMaxSpeedMetersPerSecond = 3.0;
+    public static final double kMaxAccelerationMetersPerSecondSquared = 2.0;
     public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
     public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
 
