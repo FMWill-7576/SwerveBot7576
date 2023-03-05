@@ -8,34 +8,20 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.LimelightHelpers;
 @SuppressWarnings("unused")
 
 public class Vision extends SubsystemBase{
 
-    private NetworkTableEntry tx;
-    private NetworkTableEntry ty;
-    private NetworkTableEntry tid;
-    private NetworkTableEntry tv;
-    private NetworkTableEntry ta;
-    private NetworkTable table;
-    private double x;
-    private double y;
-    private double id;
-    private double v;
-    private NetworkTableEntry tbotpose;
-    private double[] botpose;
+    public double tx;
+    public double ty;
+    public double id;
+    public double tv;
+    public double ta;
+    public double[] botpose;
+    LimelightHelpers.LimelightResults llresults;
 
-    public Vision() {
-
-        table = NetworkTableInstance.getDefault().getTable("limelight");
-        tx = table.getEntry("tx");
-        ty = table.getEntry("ty");
-        ta = table.getEntry("ta");
-        tv = table.getEntry("tv");
-        tid = table.getEntry("tid");
-        tbotpose = table.getEntry("botpose");
-
-    }
+    public Vision() { }
 
     public double getYDistance(double y) {
 
@@ -51,57 +37,28 @@ public class Vision extends SubsystemBase{
 
     public double getTheta() {
 
-        return x;
-
-    }
-
-    public boolean hasTarget() {
-
-        if(v == 0) {
-            return false;
-        } else if(v == 1.0) {
-            return true;
-        } else {
-            return false;
-        }
-
-    }
-
-    public double getID() {
-
-        return id;
-
-    }
-
-    public Pose3d getTagPose(double tagID) {
-
-        return new Pose3d(1, 2, 0.5, new Rotation3d(0, 0, 0));
-
-    }
-
-    public double[] getBotPose() {
-
-        return botpose;
+        return tx;
 
     }
 
     @Override
     public void periodic() {
 
-     double x = tx.getDouble(0.0);
-     double y = ty.getDouble(0.0);
-     double v = tv.getDouble(0.0);
-     double id = tid.getDouble(100.0);
-        double[] emptyArray = new double[0];
-        botpose = tbotpose.getDoubleArray(emptyArray);
+     double tx = LimelightHelpers.getTX("");
+     double ty = LimelightHelpers.getTY("");
+     boolean hasTarget = LimelightHelpers.getTV("");
+     double id = LimelightHelpers.getFiducialID("");
+     double[] emptyArray = new double[0];
+     botpose = LimelightHelpers.getBotPose("");
+     llresults = LimelightHelpers.getLatestResults("");
 
-        SmartDashboard.putNumber("LimelightX", x);
-        SmartDashboard.putNumber("LimelightY", y);
-        SmartDashboard.putNumber("has target", v);
+        SmartDashboard.putNumber("LimelightX", tx);
+        SmartDashboard.putNumber("LimelightY", ty);
+        SmartDashboard.putBoolean("has target", hasTarget);
         SmartDashboard.putNumber("tag id", id);
 
-        SmartDashboard.putNumber("LL x-dist", getXDistance(x, y));
-        SmartDashboard.putNumber("LL y-dist", getYDistance(y));
+        SmartDashboard.putNumber("LL x-dist", getXDistance(tx, ty));
+        SmartDashboard.putNumber("LL y-dist", getYDistance(ty));
         SmartDashboard.putNumber("LL theta", getTheta());
 
     }
