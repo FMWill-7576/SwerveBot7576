@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
@@ -19,7 +20,7 @@ public class Arm extends SubsystemBase {
   public static double armSpeedRate = - 1.0;
   private CANSparkMax armMotor;
   private final ProfiledPIDController armController;
- // private RelativeEncoder integratedarmEncoder;
+  //private RelativeEncoder integratedarmEncoder;
   private Encoder integratedArmEncoder;
   private final TrapezoidProfile.Constraints m_constraints;
 
@@ -29,7 +30,7 @@ public class Arm extends SubsystemBase {
       armController = new ProfiledPIDController(Constants.Arm.armKP,Constants.Arm.armKI,Constants.Arm.armKD, m_constraints, 0.2);
 ;
      // integratedarmEncoder = armMotor.getEncoder();
-     integratedArmEncoder = new Encoder(Constants.Arm.armEncoder,Constants.Arm.armEncoder2);
+     integratedArmEncoder = new Encoder(0,1);
      armMotorConfig();
 
   }
@@ -53,18 +54,20 @@ public void armDrive(double armPercentage){
         armController.setD(Constants.Arm.armKD);
         //armController.setFF(Constants.Arm.armKFF);
         armMotor.enableVoltageCompensation(Constants.Arm.voltageComp);
-        integratedArmEncoder.setReverseDirection(true);
+        integratedArmEncoder.setReverseDirection(false);
         integratedArmEncoder.setDistancePerPulse(Constants.Arm.armConversionPositionFactor);
         armMotor.burnFlash();
     }
 
       public void armTesting() {
-        armController.setGoal(3.0);
+        armController.setGoal(20.0);
         armMotor.setVoltage(armController.calculate(integratedArmEncoder.getDistance()));
       }
 
     @Override
     public void periodic() {
       // This method will be called once per scheduler run
+      SmartDashboard.putNumber("arm encoder" , integratedArmEncoder.get());
+      SmartDashboard.putNumber("arm distance" , integratedArmEncoder.getDistance());
     }
 }

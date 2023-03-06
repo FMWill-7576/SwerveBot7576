@@ -18,14 +18,14 @@ public final class Constants {
   
   public static final class Arm {
     public static final int armMotorID = 9 ;
-    public static final int armEncoder = 1;
-    public static final int armEncoder2 = 2;
 
-    public static final double armConversionPositionFactor = 1/71.0/7.0 ;
 
-    public static final double armKP = 0.03 ;
-    public static final double armKI = 0.0 ;
-    public static final double armKD = 0.0 ;
+
+    public static final double armConversionPositionFactor = 360.0/71.0/7.0/2.4923 ;
+
+    public static final double armKP = 0.5 ;
+    public static final double armKI = 0.05 ;
+    public static final double armKD = 0.15 ;
     public static final double armKFF = 0.0 ;
 
     public static final  IdleMode armNeutralMode = IdleMode.kBrake ;
@@ -35,7 +35,7 @@ public final class Constants {
     public static final Boolean voltageCompBoolean = true ;
     public static final int armContinuousCurrentLimit = 40;
 
-    public static final double stickDeadband = 0.07;
+    public static final double stickDeadband = 0.06;
 
   }
   
@@ -91,7 +91,7 @@ public final class Constants {
 
     /* Drive Motor Conversion Factors */
     public static final double driveConversionPositionFactor =
-        (wheelDiameter * Math.PI) / driveGearRatio * 1.05;
+        (wheelDiameter * Math.PI) / driveGearRatio ;
     public static final double driveConversionVelocityFactor = driveConversionPositionFactor / 60.0;
     public static final double angleConversionFactor = 360.0 / angleGearRatio;
 
@@ -167,6 +167,8 @@ public final class Constants {
     public static final double kPYController = 1.5;
     public static final double kPThetaController = 2.48;
 
+    public static final double Balancekp = 0.8;
+    public static final double Balancekd = 0.09;
     // Constraint for the motion profilied robot angle controller
     public static final TrapezoidProfile.Constraints kThetaControllerConstraints =
         new TrapezoidProfile.Constraints(
