@@ -45,6 +45,7 @@ public class RobotContainer {
  private final int strafeAxis = 0;
  private final int rotationAxis =  0; 
  private final int armAxis = XboxController.Axis.kRightY.value; 
+ private final int cimAxis = XboxController.Axis.kLeftY.value;
 
  
  
@@ -52,26 +53,39 @@ public class RobotContainer {
 
   // private final JoystickButton zeroGyro =
   // new JoystickButton(driver, XboxController.Button.kY.value);
-  private final JoystickButton robotCentric =
+      private final JoystickButton robotCentric =
       new JoystickButton(driver_2, 6);    
-  private final JoystickButton zeroGyro =
+
+      private final JoystickButton zeroGyro =
       new JoystickButton(driver_2, 1);
+
       private final JoystickButton incSpeed =
       new JoystickButton(driver_2, 5);
+
       private final JoystickButton decSpeed =
       new JoystickButton(driver_2, 3);
+
       private final JoystickButton xLock = 
       new JoystickButton(driver_2, 4);
+
       private final JoystickButton armTesting = 
       new JoystickButton(driver, XboxController.Button.kY.value);
+
+      private final JoystickButton resetAbsolute =
+      new JoystickButton(driver_1,1);
 
 
   /* Subsystems */
   private final Swerve s_Swerve = new Swerve();
   private final Arm s_Arm = new Arm();
+  private final CimTest s_CimTest = new CimTest();
 
     // A complex auto routine that drives forward, drops a hatch, and then drives backward.
     private final Command exampleAuto = new exampleAuto(s_Swerve);
+    private final Command AdvancedAuto = new AdvancedAuto(s_Swerve);
+    private final Command driveStraight = new driveStraight(s_Swerve);
+    private final Command doNothing = new doNothing(s_Swerve);
+
     // A chooser for autonomous commands
      SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -89,11 +103,17 @@ public class RobotContainer {
         s_Arm.setDefaultCommand(
           new ArmCommand(
             s_Arm,
-           () -> driver.getRawAxis(armAxis) * Arm.armSpeedRate + 0.08)) ;
-         
+           () -> driver.getRawAxis(armAxis) * Arm.armSpeedRate + 0.079)) ; 
+
+        s_CimTest.setDefaultCommand(
+          new CimCommand(
+            s_CimTest,
+            () -> driver.getRawAxis(cimAxis) * 1.0)) ;
             // Add commands to the autonomous command chooser
       m_chooser.setDefaultOption("Simple Auto", exampleAuto);
-      m_chooser.addOption("Complex Auto", exampleAuto);
+      m_chooser.addOption("duz+denge", AdvancedAuto);
+      m_chooser.addOption("Duz Git", driveStraight);
+      m_chooser.addOption("nothing", doNothing);
         // Put the chooser on the dashboard
         SmartDashboard.putData("OTONOM", m_chooser);
 
@@ -114,7 +134,8 @@ public class RobotContainer {
     decSpeed.whileTrue(new InstantCommand(() -> s_Swerve.decSpeed()));
     // xLock.whileTrue(new InstantCommand(() -> s_Swerve.xLock()));
     xLock.whileTrue(s_Swerve.run(() -> s_Swerve.xLock()));
-    armTesting.onTrue(s_Arm.run(() -> s_Arm.armTesting()));
+    armTesting.whileTrue(s_Arm.run(() -> s_Arm.armTesting()));
+    resetAbsolute.onTrue(new InstantCommand(() -> s_Swerve.resetModulesToAbsolute()));
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
