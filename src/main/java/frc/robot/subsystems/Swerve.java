@@ -23,11 +23,11 @@ public class Swerve extends SubsystemBase {
   private SwerveModule[] mSwerveMods;
 
   private Field2d field;
-  public ProfiledPIDController headingController = new ProfiledPIDController(
+  /* public ProfiledPIDController headingController = new ProfiledPIDController(
     3.0, 
     0, 
     0.15,
-    Constants.AutoConstants.kThetaControllerConstraints);
+    Constants.AutoConstants.kThetaControllerConstraints);*/
 
   public Swerve() {
      /*  {
@@ -83,7 +83,7 @@ public class Swerve extends SubsystemBase {
     }
   }
   
-  public void driveHeadingLocked(
+ /*  public void driveHeadingLocked(
       Translation2d translation, double theta, boolean fieldRelative, boolean isOpenLoop) {
          double current = getYaw().getRadians();
     SwerveModuleState[] swerveModuleStates =
@@ -105,7 +105,7 @@ public class Swerve extends SubsystemBase {
     for (SwerveModule mod : mSwerveMods) {
       mod.setDesiredState(swerveModuleStates[mod.moduleNumber], isOpenLoop);
     }
-  }
+  } */
 
   /* Used by SwerveControllerCommand in Auto */
   public void setModuleStates(SwerveModuleState[] desiredStates) {
@@ -119,7 +119,7 @@ public class Swerve extends SubsystemBase {
   public Pose2d getPose() {
     return swerveOdometry.getPoseMeters();
   }
-
+ 
   public void resetOdometry(Pose2d pose) {
     swerveOdometry.resetPosition(getYaw(), getPositions(), pose);
   }
@@ -185,6 +185,11 @@ public void decSpeed() {
   public Rotation2d getYaw() {
     return gyro.getRotation2d();
   }
+  public void resetModulesToAbsolute(){
+    for(SwerveModule mod : mSwerveMods){
+        mod.resetToAbsolute();
+    }
+}
   /* public Rotation2d getYaw() {
     return (Constants.Swerve.invertGyro)
         ? Rotation2d.fromDegrees(360 - gyro.getRotation2d())
@@ -208,8 +213,8 @@ public void decSpeed() {
           "Mod " + mod.moduleNumber + " Integrated", mod.getPosition().angle.getDegrees());
       SmartDashboard.putNumber(
           "Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);
-          SmartDashboard.putString(
-          "Mod " + mod.moduleNumber + " Position", mod.getPosition().toString());
+          //SmartDashboard.putString(
+          //"Mod " + mod.moduleNumber + " Position", mod.getPosition().toString());
     }
   }
 
