@@ -1,6 +1,7 @@
 package frc.robot;
 
 
+import com.ctre.phoenix.ErrorCode;
 import com.ctre.phoenix.sensors.CANCoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.ControlType;
@@ -11,6 +12,7 @@ import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;  
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.Timer;
 import frc.lib.config.SwerveModuleConstants;
 import frc.lib.math.OnboardModuleState;
 import frc.lib.util.CANCoderUtil;
@@ -30,6 +32,7 @@ public class SwerveModule {
   private RelativeEncoder driveEncoder;
   private RelativeEncoder integratedAngleEncoder;
   private CANCoder angleEncoder;
+  public double CANcoderInitTime = 0.0;
 
   private final SparkMaxPIDController driveController;
   private final SparkMaxPIDController angleController;
@@ -45,18 +48,21 @@ public class SwerveModule {
     /* Angle Encoder Config */
     angleEncoder = new CANCoder(moduleConstants.cancoderID);
     configAngleEncoder();
+    //configAngleEncoder();
 
     /* Angle Motor Config */
     angleMotor = new CANSparkMax(moduleConstants.angleMotorID, MotorType.kBrushless);
     integratedAngleEncoder = angleMotor.getEncoder();
     angleController = angleMotor.getPIDController();
     configAngleMotor();
+    //configAngleMotor();
 
     /* Drive Motor Config */
     driveMotor = new CANSparkMax(moduleConstants.driveMotorID, MotorType.kBrushless);
     driveEncoder = driveMotor.getEncoder();
     driveController = driveMotor.getPIDController();
     configDriveMotor();
+    //configDriveMotor();
 
     lastAngle = getState().angle;
   }
@@ -82,6 +88,7 @@ public class SwerveModule {
   }
 
   public void resetToAbsolute() {
+    waitForCanCoder();
     double absolutePosition = getCanCoder().getDegrees() - angleOffset.getDegrees();
     integratedAngleEncoder.setPosition(absolutePosition);
   }
@@ -165,6 +172,24 @@ public class SwerveModule {
   public Rotation2d getCanCoder() {
     return Rotation2d.fromDegrees(angleEncoder.getAbsolutePosition());
   }
+  private void waitForCanCoder(){
+    /*
+     * Wait for up to 1000 ms for a good CANcoder signal.
+     *
+     * This prevents a race condition during program startup
+     * where we try to synchronize the Falcon encoder to the
+     * CANcoder before we have received any position signal
+     * from the CANcoder.
+     */
+    for (int i = 0; i < 100; ++i) {
+        angleEncoder.getAbsolutePosition();
+        if (angleEncoder.getLastError() == ErrorCode.OK) {
+            break;
+        }
+        Timer.delay(0.010);            
+        CANcoderInitTime += 10;
+    }
+}
 
   public SwerveModuleState getState() {
     return new SwerveModuleState(driveEncoder.getVelocity(), getAngle());

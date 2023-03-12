@@ -8,22 +8,21 @@ import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.CimTest;
+import frc.robot.Constants;
+import frc.robot.subsystems.VictorArm;
 
-public class CimCommand extends CommandBase {
-  CimTest s_CimTest;
-  private DoubleSupplier cimSup;
-  
-  /** Creates a new CimCommand. */
-  public CimCommand(
-     CimTest s_CimTest,
-  DoubleSupplier cimSup
-    ) {
-      this.s_CimTest = s_CimTest;
-      addRequirements(s_CimTest);
-      this.cimSup = cimSup;
-      
+public class VictorArmCommand extends CommandBase {
+  VictorArm s_Arm;
+  private DoubleSupplier armSup;
+  /** Creates a new VictorArmCommand. */
+  public VictorArmCommand(
+    VictorArm s_Arm,
+    DoubleSupplier armSup
+  ) {
     // Use addRequirements() here to declare subsystem dependencies.
+    this.s_Arm = s_Arm;
+    addRequirements(s_Arm);
+    this.armSup = armSup;
   }
 
   // Called when the command is initially scheduled.
@@ -33,9 +32,10 @@ public class CimCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double cimVal =
-     MathUtil.applyDeadband(cimSup.getAsDouble(),0.05);
-    s_CimTest.cimDrive(cimVal);
+    double armVal = MathUtil.applyDeadband(armSup.getAsDouble(), Constants.ArmConstants.stickDeadband);
+    
+    s_Arm.victorDrive(armVal);
+
   }
 
   // Called once the command ends or is interrupted.

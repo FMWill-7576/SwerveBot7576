@@ -4,7 +4,6 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.math.controller.BangBangController;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -28,7 +27,7 @@ public class BalanceCommandWithPid extends CommandBase {
 
   @Override
   public void execute() {
-    if (Math.abs(s_Swerve.getPitch()) > 1.0 ) {
+    
     s_Swerve.drive(
       
       new Translation2d(balanceController.calculate(s_Swerve.getPitch(), 0), 
@@ -37,9 +36,7 @@ public class BalanceCommandWithPid extends CommandBase {
         true,
         true);
   } 
-}
   
-
   @Override
   public void end(boolean interrupted) {
     s_Swerve.drive(new Translation2d(0,0), 0.0, true, false);

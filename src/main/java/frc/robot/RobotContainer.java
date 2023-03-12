@@ -5,7 +5,6 @@
 package frc.robot;
 
 
-import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
@@ -68,17 +67,28 @@ public class RobotContainer {
       private final JoystickButton xLock = 
       new JoystickButton(driver_2, 4);
 
-      private final JoystickButton armTesting = 
-      new JoystickButton(driver, XboxController.Button.kY.value);
+      /* private final JoystickButton armTesting = 
+      new JoystickButton(driver, XboxController.Button.kY.value); */
+       private final JoystickButton victorTest = 
+      new JoystickButton(driver, XboxController.Button.kY.value); 
+
+      private final JoystickButton victorTest2 = 
+      new JoystickButton(driver, XboxController.Button.kA.value); 
+
+      private final JoystickButton pistonTest = 
+      new JoystickButton(driver, 6);
+
 
       private final JoystickButton resetAbsolute =
       new JoystickButton(driver_1,1);
+      
 
 
   /* Subsystems */
   private final Swerve s_Swerve = new Swerve();
-  private final Arm s_Arm = new Arm();
-  private final CimTest s_CimTest = new CimTest();
+  private final VictorArm s_Arm = new VictorArm();
+  private final Gripper s_Gripper = new Gripper();
+  // private final CimTest s_CimTest = new CimTest();
 
     // A complex auto routine that drives forward, drops a hatch, and then drives backward.
     private final Command exampleAuto = new exampleAuto(s_Swerve);
@@ -101,16 +111,16 @@ public class RobotContainer {
             () -> robotCentric.getAsBoolean())); 
 
         s_Arm.setDefaultCommand(
-          new ArmCommand(
+          new VictorArmCommand(
             s_Arm,
-           () -> driver.getRawAxis(armAxis) * Arm.armSpeedRate + 0.079)) ; 
+           () -> (- driver.getRawAxis(armAxis) * 0.3) + 0.16)) ; 
 
-        s_CimTest.setDefaultCommand(
+       /*  s_CimTest.setDefaultCommand(
           new CimCommand(
             s_CimTest,
-            () -> driver.getRawAxis(cimAxis) * 1.0)) ;
+            () -> driver.getRawAxis(cimAxis) * 1.0)) ; */
             // Add commands to the autonomous command chooser
-      m_chooser.setDefaultOption("Simple Auto", exampleAuto);
+      m_chooser.setDefaultOption("FULL RUTIN", exampleAuto);
       m_chooser.addOption("duz+denge", AdvancedAuto);
       m_chooser.addOption("Duz Git", driveStraight);
       m_chooser.addOption("nothing", doNothing);
@@ -132,10 +142,12 @@ public class RobotContainer {
     zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
     incSpeed.whileTrue(new InstantCommand(() -> s_Swerve.incSpeed()));
     decSpeed.whileTrue(new InstantCommand(() -> s_Swerve.decSpeed()));
-    // xLock.whileTrue(new InstantCommand(() -> s_Swerve.xLock()));
     xLock.whileTrue(s_Swerve.run(() -> s_Swerve.xLock()));
-    armTesting.whileTrue(s_Arm.run(() -> s_Arm.armTesting()));
+    //armTesting.whileTrue(s_Arm.run(() -> s_Arm.armTesting()));
     resetAbsolute.onTrue(new InstantCommand(() -> s_Swerve.resetModulesToAbsolute()));
+    victorTest.whileTrue(s_Arm.run(() -> s_Arm.victorTest()));
+    victorTest2.whileTrue(s_Arm.run(() -> s_Arm.victorTest2()));
+    pistonTest.onTrue(s_Gripper.run(() -> s_Gripper.pistonTest()));
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

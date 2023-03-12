@@ -4,47 +4,46 @@
 
 package frc.robot.commands;
 
-import java.util.function.DoubleSupplier;
-
-import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.CimTest;
+import frc.robot.subsystems.Swerve;
 
-public class CimCommand extends CommandBase {
-  CimTest s_CimTest;
-  private DoubleSupplier cimSup;
-  
-  /** Creates a new CimCommand. */
-  public CimCommand(
-     CimTest s_CimTest,
-  DoubleSupplier cimSup
-    ) {
-      this.s_CimTest = s_CimTest;
-      addRequirements(s_CimTest);
-      this.cimSup = cimSup;
-      
+public class driveBack extends CommandBase {
+  private final Swerve s_Swerve;
+  /** Creates a new driveBack. */
+  public driveBack(Swerve s_Swerve) {
+    this.s_Swerve = s_Swerve;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double cimVal =
-     MathUtil.applyDeadband(cimSup.getAsDouble(),0.05);
-    s_CimTest.cimDrive(cimVal);
+    s_Swerve.drive(
+      
+      new Translation2d(-0.25, 
+      0),
+        0,
+        true,
+        true);
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return (Math.abs(s_Swerve.getPitch()) > 3.5 );
   }
 }

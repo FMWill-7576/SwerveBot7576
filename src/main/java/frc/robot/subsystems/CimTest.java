@@ -17,8 +17,8 @@ public class CimTest extends SubsystemBase {
   /** Creates a new CimTest. */
   public CimTest() {
     //cimMotor = new VictorSPX(27);
-    cimMotor2 = new VictorSPX(30);
-    cimMotorConfig(); 
+   // cimMotor2 = new VictorSPX(30);
+   // cimMotorConfig(); 
   
   }
   public void cimDrive(double value){

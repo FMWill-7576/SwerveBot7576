@@ -52,14 +52,14 @@ public class Vision extends SubsystemBase{
      botpose = LimelightHelpers.getBotPose("");
      llresults = LimelightHelpers.getLatestResults("");
 
-        SmartDashboard.putNumber("LimelightX", tx);
+        /* SmartDashboard.putNumber("LimelightX", tx);
         SmartDashboard.putNumber("LimelightY", ty);
         SmartDashboard.putBoolean("has target", hasTarget);
         SmartDashboard.putNumber("tag id", id);
 
         SmartDashboard.putNumber("LL x-dist", getXDistance(tx, ty));
         SmartDashboard.putNumber("LL y-dist", getYDistance(ty));
-        SmartDashboard.putNumber("LL theta", getTheta());
+        SmartDashboard.putNumber("LL theta", getTheta()); */
 
     }
     

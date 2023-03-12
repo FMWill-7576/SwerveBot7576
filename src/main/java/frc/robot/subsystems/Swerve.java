@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -55,6 +56,9 @@ public class Swerve extends SubsystemBase {
 
 
    swerveOdometry = new SwerveDriveOdometry(Constants.Swerve.swerveKinematics, getYaw(), getPositions());
+   for(SwerveModule mod : mSwerveMods){
+    DriverStation.reportError("CANcoder on Module " + mod.moduleNumber + " took " + mod.CANcoderInitTime + " ms to be ready.", false);
+   }
     
     field = new Field2d();
     SmartDashboard.putData("Field", field);

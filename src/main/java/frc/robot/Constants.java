@@ -16,7 +16,7 @@ import edu.wpi.first.math.geometry.Rotation3d;
 
 public final class Constants {
   
-  public static final class Arm {
+  public static final class ArmConstants {
     public static final int armMotorID = 9 ;
 
 
@@ -35,12 +35,12 @@ public final class Constants {
     public static final Boolean voltageCompBoolean = true ;
     public static final int armContinuousCurrentLimit = 40;
 
-    public static final double stickDeadband = 0.06;
+    public static final double stickDeadband = 0.04;
 
   }
   
   public static final class Swerve {
-    public static final double stickDeadband = 0.078;
+    public static final double stickDeadband = 0.09;
 
     public static final boolean invertGyro = true; // Always ensure Gyro is CCW+ CW-
 
@@ -48,8 +48,8 @@ public final class Constants {
     public static final double trackWidth = 0.585;
     // Distance between right and left wheels
     public static final double wheelBase = 0.585;
-    // Distance between front and back wheels
-    public static final double wheelDiameter = Units.inchesToMeters(4.0);
+    // Distance between front and back wheelsxx
+    public static final double wheelDiameter = Units.inchesToMeters(3.91);
     public static final double wheelCircumference = wheelDiameter * Math.PI;
 
     public static final double openLoopRamp = 0.25;
@@ -158,7 +158,7 @@ public final class Constants {
   }
 
   public static final class AutoConstants {
-    public static final double kMaxSpeedMetersPerSecond = 3.0;
+    public static final double kMaxSpeedMetersPerSecond = 3.5;
     public static final double kMaxAccelerationMetersPerSecondSquared = 2.0;
     public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
     public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
