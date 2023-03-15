@@ -95,7 +95,7 @@ public class SwerveModule {
 
   private void configAngleEncoder() {
     angleEncoder.configFactoryDefault();
-    CANCoderUtil.setCANCoderBusUsage(angleEncoder, CCUsage.kMinimal);
+    CANCoderUtil.setCANCoderBusUsage(angleEncoder, CCUsage.kSensorDataOnly);
     angleEncoder.configAllSettings(Robot.ctreConfigs.swerveCanCoderConfig);
   }
 
