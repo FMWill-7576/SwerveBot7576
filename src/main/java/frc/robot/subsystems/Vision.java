@@ -21,7 +21,12 @@ public class Vision extends SubsystemBase{
     public double[] botpose;
     LimelightHelpers.LimelightResults llresults;
 
-    public Vision() { }
+    public Vision() { 
+        LimelightHelpers.setCameraMode_Driver("limelight");
+        LimelightHelpers.setPipelineIndex("limelight", 1);
+        
+        
+    }
 
     public double getYDistance(double y) {
 
