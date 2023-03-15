@@ -67,8 +67,12 @@ public class RobotContainer {
       private final JoystickButton xLock = 
       new JoystickButton(driver_2, 4);
 
-      /* private final JoystickButton armTesting = 
-      new JoystickButton(driver, XboxController.Button.kY.value); */
+       private final JoystickButton slideTesting = 
+      new JoystickButton(driver,5); 
+
+      private final JoystickButton slideTesting2 = 
+      new JoystickButton(driver,6);
+
        private final JoystickButton victorTest = 
       new JoystickButton(driver, XboxController.Button.kY.value); 
 
@@ -88,7 +92,8 @@ public class RobotContainer {
   private final Swerve s_Swerve = new Swerve();
   private final VictorArm s_Arm = new VictorArm();
   private final Gripper s_Gripper = new Gripper();
-  // private final CimTest s_CimTest = new CimTest();
+   private final Slider s_CimTest = new Slider();
+   private final Vision s_Vision = new Vision();
 
     // A complex auto routine that drives forward, drops a hatch, and then drives backward.
     private final Command exampleAuto = new exampleAuto(s_Swerve);
@@ -113,12 +118,12 @@ public class RobotContainer {
         s_Arm.setDefaultCommand(
           new VictorArmCommand(
             s_Arm,
-           () -> (- driver.getRawAxis(armAxis) * 0.3) + 0.16)) ; 
+           () -> (- driver.getRawAxis(armAxis) * 0.3) + 0.08)) ; 
 
-       /*  s_CimTest.setDefaultCommand(
-          new CimCommand(
+         s_CimTest.setDefaultCommand(
+          new SlideCommand(
             s_CimTest,
-            () -> driver.getRawAxis(cimAxis) * 1.0)) ; */
+            () -> driver.getRawAxis(cimAxis) * 0.2)) ; 
             // Add commands to the autonomous command chooser
       m_chooser.setDefaultOption("FULL RUTIN", exampleAuto);
       m_chooser.addOption("duz+denge", AdvancedAuto);
@@ -148,6 +153,8 @@ public class RobotContainer {
     victorTest.whileTrue(s_Arm.run(() -> s_Arm.victorTest()));
     victorTest2.whileTrue(s_Arm.run(() -> s_Arm.victorTest2()));
     pistonTest.onTrue(s_Gripper.run(() -> s_Gripper.pistonTest()));
+    slideTesting.whileTrue(s_CimTest.run(() -> s_CimTest.slideTesting()));
+    slideTesting2.whileTrue(s_CimTest.run(() -> s_CimTest.slideTesting2()));
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

@@ -58,13 +58,13 @@ victor2.set(VictorSPXControlMode.PercentOutput, power);
 }
 
 public void victorTest(){
-  victor1.set(VictorSPXControlMode.PercentOutput, 0.25);
-  victor2.set(VictorSPXControlMode.PercentOutput, 0.25);
+  victor1.set(VictorSPXControlMode.PercentOutput, 0.15);
+  victor2.set(VictorSPXControlMode.PercentOutput, 0.15);
 
 }
 public void victorTest2(){
-  victor1.set(VictorSPXControlMode.PercentOutput, 0.05);
-  victor2.set(VictorSPXControlMode.PercentOutput, 0.05);
+  victor1.set(VictorSPXControlMode.PercentOutput, -0.08);
+  victor2.set(VictorSPXControlMode.PercentOutput, -0.08);
 }
   
 

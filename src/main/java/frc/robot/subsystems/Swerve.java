@@ -45,6 +45,7 @@ public class Swerve extends SubsystemBase {
       gyro.reset();
   } catch (Exception e) {
   }
+  
 
     mSwerveMods =
         new SwerveModule[] {
@@ -56,9 +57,7 @@ public class Swerve extends SubsystemBase {
 
 
    swerveOdometry = new SwerveDriveOdometry(Constants.Swerve.swerveKinematics, getYaw(), getPositions());
-   for(SwerveModule mod : mSwerveMods){
-    DriverStation.reportError("CANcoder on Module " + mod.moduleNumber + " took " + mod.CANcoderInitTime + " ms to be ready.", false);
-   }
+  
     
     field = new Field2d();
     SmartDashboard.putData("Field", field);
@@ -206,10 +205,11 @@ public void decSpeed() {
   public void periodic() {
     swerveOdometry.update(getYaw(), getPositions());
     field.setRobotPose(getPose());
-    SmartDashboard.putNumber("Robot Heading",Math.IEEEremainder(gyro.getAngle(), 360));
+    SmartDashboard.putNumber("Robot Heading",Math.IEEEremainder(gyro.getYaw(), 360));
     SmartDashboard.putString("Robot Location", getPose().toString());
     SmartDashboard.putNumber("Speed Rate", speedRateSwerve);
-
+    SmartDashboard.putNumber("pitch", Math.IEEEremainder(gyro.getPitch(),360));
+    SmartDashboard.putNumber("roll", Math.IEEEremainder(gyro.getRoll(),360));
     for (SwerveModule mod : mSwerveMods) {
       SmartDashboard.putNumber(
           "Mod " + mod.moduleNumber + " Cancoder", mod.getCanCoder().getDegrees());

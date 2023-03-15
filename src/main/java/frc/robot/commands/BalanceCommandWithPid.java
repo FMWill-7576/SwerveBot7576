@@ -30,7 +30,7 @@ public class BalanceCommandWithPid extends CommandBase {
     
     s_Swerve.drive(
       
-      new Translation2d(balanceController.calculate(s_Swerve.getPitch(), 0), 
+      new Translation2d(balanceController.calculate(s_Swerve.getRoll(), 0), 
       0),
         0,
         true,
