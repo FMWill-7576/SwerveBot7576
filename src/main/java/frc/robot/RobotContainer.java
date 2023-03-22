@@ -123,7 +123,7 @@ public class RobotContainer {
          s_Slider.setDefaultCommand(
           new SlideCommand(
             s_Slider,
-            () -> driver.getRawAxis(slideAxis) * 1.0)) ; 
+            () -> (- driver.getRawAxis(slideAxis)) * 1.0)) ; 
             // Add commands to the autonomous command chooser
       m_chooser.setDefaultOption("duz+denge", AdvancedAuto);
       m_chooser.addOption("FULL RUTIN", exampleAuto);
