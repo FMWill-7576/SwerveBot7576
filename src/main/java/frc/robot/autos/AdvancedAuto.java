@@ -71,15 +71,17 @@ Trajectory exampleTrajectory =
 
             
     addCommands(
-       new InstantCommand(() -> s_Swerve.resetModulesToAbsolute()),
-      new DriveForward(s_Swerve),
-      new WaitCommand(1.5),
-     new InstantCommand(() -> s_Swerve.resetOdometry(exampleTrajectory.getInitialPose())),
- 
-      swerveControllerCommand,
-      new DriveBack(s_Swerve),
-      new BalanceCommand(s_Swerve)
+        new InstantCommand(() -> s_Swerve.resetModulesToAbsolute()),
+        // new InstantCommand(() -> s_Swerve.invertGyro()),
+       new InstantCommand(() -> s_Swerve.zeroGyro()),
+       new DriveForward(s_Swerve),
+       new WaitCommand(3.0),
+      //new InstantCommand(() -> s_Swerve.resetOdometry(exampleTrajectory.getInitialPose())),
   
+       //swerveControllerCommand
+       new DriveBack(s_Swerve),
+       new BalanceCommand(s_Swerve)
+   
      );
   
   }

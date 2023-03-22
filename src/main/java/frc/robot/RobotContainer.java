@@ -118,12 +118,12 @@ public class RobotContainer {
         s_Arm.setDefaultCommand(
           new VictorArmCommand(
             s_Arm,
-           () -> (- driver.getRawAxis(armAxis) * 0.3) + 0.08)) ; 
+           () -> (- driver.getRawAxis(armAxis) * 0.32) + s_Arm.kG)) ; 
 
          s_Slider.setDefaultCommand(
           new SlideCommand(
             s_Slider,
-            () -> driver.getRawAxis(slideAxis) * 0.6)) ; 
+            () -> driver.getRawAxis(slideAxis) * 1.0)) ; 
             // Add commands to the autonomous command chooser
       m_chooser.setDefaultOption("duz+denge", AdvancedAuto);
       m_chooser.addOption("FULL RUTIN", exampleAuto);

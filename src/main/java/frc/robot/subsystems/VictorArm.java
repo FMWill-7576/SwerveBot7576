@@ -21,6 +21,7 @@ public class VictorArm extends SubsystemBase {
   private VictorSPX victor3;
   private VictorSPX victor4;
   private CANCoder  armCoder;
+  public double kG;
   /** Creates a new VictorArm. */
   public VictorArm() {
      victor1  = new VictorSPX(16);
@@ -30,6 +31,7 @@ public class VictorArm extends SubsystemBase {
     armCoder = new CANCoder(23);
     victorConfig();
     configArmCoder();
+    kG = 0.18;
     
   }
   public void victorConfig(){
@@ -78,19 +80,19 @@ victor2.set(VictorSPXControlMode.PercentOutput, power);
 }
 
 public void victorTest(){
-  victor1.set(VictorSPXControlMode.PercentOutput, 0.15);
-  victor2.set(VictorSPXControlMode.PercentOutput, 0.15);
+  victor1.set(VictorSPXControlMode.PercentOutput, 0.28);
+  victor2.set(VictorSPXControlMode.PercentOutput, 0.28);
 
 }
 public void victorTest2(){
-  victor1.set(VictorSPXControlMode.PercentOutput, -0.08);
-  victor2.set(VictorSPXControlMode.PercentOutput, -0.08);
+  victor1.set(VictorSPXControlMode.PercentOutput, -0.09);
+  victor2.set(VictorSPXControlMode.PercentOutput, -0.09);
 }
   
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("armCoder",armCoder.getPosition());
+   // SmartDashboard.putNumber("armCoder",armCoder.getPosition());
 
 
 

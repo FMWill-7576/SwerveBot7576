@@ -28,11 +28,11 @@ public class Swerve extends SubsystemBase {
   public Swerve() {
     try {
       Thread.sleep(1000); // waiting for 1 second for the navx to complete the calibration before resetting the yaw
-      gyro.reset();
-     // gyro.setAngleAdjustment(180.0);
+     // gyro.reset();
+      invertGyro();
   } catch (InterruptedException ex) {
     Thread.currentThread().interrupt();
-  }
+  } 
 
   
 
@@ -154,8 +154,8 @@ speedRateSwerve = 0.2;
     return gyro.getRoll();
   }
   public Rotation2d getYaw() {
-    return gyro.getRotation2d();
-    //return Rotation2d.fromDegrees(gyro.getAngle());
+    //return gyro.getRotation2d();
+    return Rotation2d.fromDegrees(-gyro.getAngle());
   }
   public void resetModulesToAbsolute(){
      for(SwerveModule mod : mSwerveMods){
@@ -169,17 +169,17 @@ speedRateSwerve = 0.2;
   public void periodic() {
     swerveOdometry.update(getYaw(), getPositions());
     field.setRobotPose(getPose());
-    SmartDashboard.putNumber("Robot Heading",Math.IEEEremainder(gyro.getAngle(), 360));
+    SmartDashboard.putNumber("Robot Heading",(gyro.getAngle()+ 180));
     SmartDashboard.putString("Robot Location", getPose().toString());
     SmartDashboard.putNumber("Speed Rate", speedRateSwerve);
-    SmartDashboard.putNumber("pitch", Math.IEEEremainder(gyro.getPitch(),360));
+    SmartDashboard.putNumber("pitch", (gyro.getPitch()));
     SmartDashboard.putNumber("roll", gyro.getRoll());
     SmartDashboard.putNumber("adjustment", gyro.getAngleAdjustment());
     for (SwerveModule mod : mSwerveMods) {
       SmartDashboard.putNumber(
           "Mod " + mod.moduleNumber + " Cancoder", mod.getCanCoder().getDegrees());
-      SmartDashboard.putNumber(
-          "Mod " + mod.moduleNumber + " Integrated", mod.getPosition().angle.getDegrees());
+      //SmartDashboard.putNumber(
+      //    "Mod " + mod.moduleNumber + " Integrated", mod.getPosition().angle.getDegrees());
       SmartDashboard.putNumber(
           "Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);
           //SmartDashboard.putString(
