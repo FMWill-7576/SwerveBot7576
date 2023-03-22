@@ -39,11 +39,11 @@ public class Slider extends SubsystemBase {
 
   }
     public void slideTesting(){
-      slideMotor.set(0.20);
+      slideMotor.set(0.10);
     }
 
     public void slideTesting2(){
-      slideMotor.set(-0.20);
+      slideMotor.set(-0.10);
     }
   
   /* public void cimMotorConfig(){

@@ -21,6 +21,7 @@ public class doNothing extends SequentialCommandGroup {
     thetaController.enableContinuousInput(-Math.PI, Math.PI);
 
     addCommands(
+      new InstantCommand(() -> s_Swerve.resetModulesToAbsolute()),
      new InstantCommand(() -> s_Swerve.drive(
             new Translation2d(0, 0),
             0,

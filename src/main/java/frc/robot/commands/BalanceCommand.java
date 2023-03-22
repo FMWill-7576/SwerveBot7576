@@ -23,16 +23,16 @@ public class BalanceCommand extends CommandBase {
     this.s_Swerve = s_Swerve;
     addRequirements(s_Swerve);
   }
- double initRoll = driveBack.initialRoll;
- double tolerance = 1.0;
+ double initRoll = DriveBack.initialRoll;
+ double tolerance = 2.5;
   @Override
   public void execute() {
 
-    if (s_Swerve.getRoll() >= initRoll + tolerance){
+    if (s_Swerve.getRoll() > initRoll + tolerance){
       
       s_Swerve.drive(
       
-    new Translation2d(0.21, 
+    new Translation2d(-0.11, 
     0),
       0,
       true,
@@ -40,11 +40,11 @@ public class BalanceCommand extends CommandBase {
 
     }
     
-    else if(s_Swerve.getRoll() <= initRoll + tolerance){
+    else if(s_Swerve.getRoll() < -(initRoll + tolerance)){
 
   s_Swerve.drive(
       
-    new Translation2d(-0.21, 
+    new Translation2d(0.11, 
     0),
       0,
       true,
@@ -66,8 +66,8 @@ public class BalanceCommand extends CommandBase {
 }
   @Override
   public void end(boolean interrupted) {
-    //s_Swerve.drive(new Translation2d(0,0), 0.0, true, false);
-    andThen(new InstantCommand(() -> s_Swerve.xLock()));
+    s_Swerve.drive(new Translation2d(0,0), 0.0, true, false);
+    s_Swerve.xLock();
   }
 
   @Override

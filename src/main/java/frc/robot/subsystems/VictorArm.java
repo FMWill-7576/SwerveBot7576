@@ -6,9 +6,13 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import com.ctre.phoenix.sensors.CANCoder;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.lib.util.CANCoderUtil;
+import frc.lib.util.CANCoderUtil.CCUsage;
+import frc.robot.Robot;
 
 public class VictorArm extends SubsystemBase {
   
@@ -16,15 +20,16 @@ public class VictorArm extends SubsystemBase {
   private VictorSPX victor2;
   private VictorSPX victor3;
   private VictorSPX victor4;
-  private MotorControllerGroup victors;
+  private CANCoder  armCoder;
   /** Creates a new VictorArm. */
   public VictorArm() {
      victor1  = new VictorSPX(16);
      victor2 = new VictorSPX(30);
     //victor3 = new WPI_VictorSPX(18);
     //victor4 = new WPI_VictorSPX(19);
-    //victors = new MotorControllerGroup(victor1,victor2);
-    victorConfig();    
+    armCoder = new CANCoder(23);
+    victorConfig();
+    configArmCoder();
     
   }
   public void victorConfig(){
@@ -51,7 +56,22 @@ victor4.enableVoltageCompensation(true);
 victor4.configVoltageCompSaturation(12.0);
 victor4.setInverted(true);
 victor4.setNeutralMode(NeutralMode.Brake); */
+
+
     }
+
+    private void configArmCoder() {
+      armCoder.configFactoryDefault();
+      CANCoderUtil.setCANCoderBusUsage(armCoder, CCUsage.kSensorDataOnly);
+      armCoder.configAllSettings(Robot.ctreConfigs.armCoderConfig);
+
+    }
+
+
+
+
+
+
 public void victorDrive(double power){ 
 victor1.set(VictorSPXControlMode.PercentOutput, power);
 victor2.set(VictorSPXControlMode.PercentOutput, power);
@@ -70,6 +90,7 @@ public void victorTest2(){
 
   @Override
   public void periodic() {
+    SmartDashboard.putNumber("armCoder",armCoder.getPosition());
 
 
 

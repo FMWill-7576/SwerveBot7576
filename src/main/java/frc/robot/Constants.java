@@ -86,7 +86,7 @@ public final class Constants {
 
     /* Drive Motor Characterization Values */
     public static final double driveKS = 0.667;
-    public static final double driveKV = 1.91;
+    public static final double driveKV = 2.44;
     public static final double driveKA = 0.27;
 
     /* Drive Motor Conversion Factors */
@@ -158,8 +158,8 @@ public final class Constants {
   }
 
   public static final class AutoConstants {
-    public static final double kMaxSpeedMetersPerSecond = 3.5;
-    public static final double kMaxAccelerationMetersPerSecondSquared = 2.0;
+    public static final double kMaxSpeedMetersPerSecond = 3.0;
+    public static final double kMaxAccelerationMetersPerSecondSquared = 1.5;
     public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
     public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
 

@@ -22,8 +22,8 @@ public class Vision extends SubsystemBase{
     LimelightHelpers.LimelightResults llresults;
 
     public Vision() { 
-        LimelightHelpers.setCameraMode_Driver("limelight");
-        LimelightHelpers.setPipelineIndex("limelight", 1);
+      //  LimelightHelpers.setCameraMode_Driver("limelight");
+       // LimelightHelpers.setPipelineIndex("limelight", 1);
         
         
     }
@@ -49,13 +49,13 @@ public class Vision extends SubsystemBase{
     @Override
     public void periodic() {
 
-     double tx = LimelightHelpers.getTX("");
+     /* double tx = LimelightHelpers.getTX("");
      double ty = LimelightHelpers.getTY("");
      boolean hasTarget = LimelightHelpers.getTV("");
      double id = LimelightHelpers.getFiducialID("");
      double[] emptyArray = new double[0];
      botpose = LimelightHelpers.getBotPose("");
-     llresults = LimelightHelpers.getLatestResults("");
+     llresults = LimelightHelpers.getLatestResults(""); */
 
         /* SmartDashboard.putNumber("LimelightX", tx);
         SmartDashboard.putNumber("LimelightY", ty);

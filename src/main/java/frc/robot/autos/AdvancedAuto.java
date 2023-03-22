@@ -17,9 +17,11 @@ import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.commands.BalanceCommand;
-import frc.robot.commands.driveBack;
+import frc.robot.commands.DriveBack;
+import frc.robot.commands.DriveForward;
 import frc.robot.subsystems.Swerve;
 
 
@@ -38,14 +40,14 @@ public class AdvancedAuto extends SequentialCommandGroup {
 Trajectory exampleTrajectory =
         TrajectoryGenerator.generateTrajectory(
             // Start at the origin facing the +X direction
-            new Pose2d(0.0, 0.0, new Rotation2d(Math.toRadians(0.0))),
+            new Pose2d(0.0, 0.0, new Rotation2d(Math.toRadians(180.0))),
             // Pass through the  waypoints
             List.of(    
-                new Translation2d(1.0, 0.01), 
-                new Translation2d(2.0, 0.0)
+                new Translation2d(0.0, 0.01), 
+                new Translation2d(1.5, 0.0)
                 ),
             // end
-            new Pose2d(4.0, 0.0, new Rotation2d(Math.toRadians(0.0))),
+            new Pose2d(2.0, 0.0, new Rotation2d(Math.toRadians(180.0))),
             config);
         var thetaController =
         new ProfiledPIDController(
@@ -69,11 +71,13 @@ Trajectory exampleTrajectory =
 
             
     addCommands(
-      
-      new InstantCommand(() -> s_Swerve.resetOdometry(exampleTrajectory.getInitialPose())),
+       new InstantCommand(() -> s_Swerve.resetModulesToAbsolute()),
+      new DriveForward(s_Swerve),
+      new WaitCommand(1.5),
+     new InstantCommand(() -> s_Swerve.resetOdometry(exampleTrajectory.getInitialPose())),
  
-     // swerveControllerCommand,
-      new driveBack(s_Swerve),
+      swerveControllerCommand,
+      new DriveBack(s_Swerve),
       new BalanceCommand(s_Swerve)
   
      );

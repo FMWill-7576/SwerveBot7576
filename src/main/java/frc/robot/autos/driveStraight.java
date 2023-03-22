@@ -95,6 +95,7 @@ public class driveStraight extends SequentialCommandGroup {
         s_Swerve);
 
     addCommands(
+        new InstantCommand(() -> s_Swerve.resetModulesToAbsolute()),
 
      new InstantCommand(() -> s_Swerve.resetOdometry(exampleTrajectory.getInitialPose())),
 

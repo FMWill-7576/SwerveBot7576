@@ -48,7 +48,7 @@ public class SwerveModule {
     /* Angle Encoder Config */
     angleEncoder = new CANCoder(moduleConstants.cancoderID);
     configAngleEncoder();
-    //configAngleEncoder();
+    configAngleEncoder();
 
     /* Angle Motor Config */
     angleMotor = new CANSparkMax(moduleConstants.angleMotorID, MotorType.kBrushless);
@@ -88,7 +88,7 @@ public class SwerveModule {
   }
 
   public void resetToAbsolute() {
-    waitForCanCoder();
+    //waitForCanCoder();
     double absolutePosition = getCanCoder().getDegrees() - angleOffset.getDegrees();
     integratedAngleEncoder.setPosition(absolutePosition);
   }
