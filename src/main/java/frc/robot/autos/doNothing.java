@@ -11,14 +11,6 @@ public class doNothing extends SequentialCommandGroup {
   public doNothing(Swerve s_Swerve) {
 
     // An example trajectory to follow.  All units in meters.
-    
-    var thetaController =
-        new ProfiledPIDController(
-            Constants.AutoConstants.kPThetaController,
-            0.0,
-            0.1,
-            Constants.AutoConstants.kThetaControllerConstraints);
-    thetaController.enableContinuousInput(-Math.PI, Math.PI);
 
     addCommands(
       new InstantCommand(() -> s_Swerve.resetModulesToAbsolute()),

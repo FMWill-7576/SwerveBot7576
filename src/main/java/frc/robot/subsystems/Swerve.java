@@ -28,7 +28,7 @@ public class Swerve extends SubsystemBase {
   public Swerve() {
     try {
       Thread.sleep(1000); // waiting for 1 second for the navx to complete the calibration before resetting the yaw
-     // gyro.reset();
+      gyro.reset();
       invertGyro();
   } catch (InterruptedException ex) {
     Thread.currentThread().interrupt();

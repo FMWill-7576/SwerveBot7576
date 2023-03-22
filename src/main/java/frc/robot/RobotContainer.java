@@ -90,7 +90,7 @@ public class RobotContainer {
 
   /* Subsystems */
   private final Swerve s_Swerve = new Swerve();
-  private final VictorArm s_Arm = new VictorArm();
+  private final VictorArm s_VictorArm = new VictorArm();
   private final Gripper s_Gripper = new Gripper();
    private final Slider s_Slider = new Slider();
    //private final Vision s_Vision = new Vision();
@@ -115,10 +115,10 @@ public class RobotContainer {
             () -> -driver_2.getRawAxis(rotationAxis) * Swerve.speedRateSwerve,
             () -> robotCentric.getAsBoolean())); 
 
-        s_Arm.setDefaultCommand(
+        s_VictorArm.setDefaultCommand(
           new VictorArmCommand(
-            s_Arm,
-           () -> (- driver.getRawAxis(armAxis) * 0.32) + s_Arm.kG)) ; 
+            s_VictorArm,
+           () -> (- driver.getRawAxis(armAxis) * 0.32) + s_VictorArm.kG)) ; 
 
          s_Slider.setDefaultCommand(
           new SlideCommand(
@@ -150,8 +150,8 @@ public class RobotContainer {
     xLock.whileTrue(s_Swerve.run(() -> s_Swerve.xLock()));
     //armTesting.whileTrue(s_Arm.run(() -> s_Arm.armTesting()));
     resetAbsolute.onTrue(new InstantCommand(() -> s_Swerve.resetModulesToAbsolute()));
-    victorTest.whileTrue(s_Arm.run(() -> s_Arm.victorTest()));
-    victorTest2.whileTrue(s_Arm.run(() -> s_Arm.victorTest2()));
+    victorTest.whileTrue(s_VictorArm.run(() -> s_VictorArm.victorTest()));
+    victorTest2.whileTrue(s_VictorArm.run(() -> s_VictorArm.victorTest2()));
     pistonTest.onTrue(s_Gripper.run(() -> s_Gripper.pistonTest()));
     slideTesting.whileTrue(s_Slider.run(() -> s_Slider.slideTesting()));
     slideTesting2.whileTrue(s_Slider.run(() -> s_Slider.slideTesting2()));

@@ -12,16 +12,16 @@ import frc.robot.Constants;
 import frc.robot.subsystems.VictorArm;
 
 public class VictorArmCommand extends CommandBase {
-  VictorArm s_Arm;
+  VictorArm s_VictorArm;
   private DoubleSupplier armSup;
   /** Creates a new VictorArmCommand. */
   public VictorArmCommand(
-    VictorArm s_Arm,
+    VictorArm s_VictorArm,
     DoubleSupplier armSup
   ) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.s_Arm = s_Arm;
-    addRequirements(s_Arm);
+    this.s_VictorArm = s_VictorArm;
+    addRequirements(s_VictorArm);
     this.armSup = armSup;
   }
 
@@ -34,7 +34,7 @@ public class VictorArmCommand extends CommandBase {
   public void execute() {
     double armVal = MathUtil.applyDeadband(armSup.getAsDouble(), Constants.ArmConstants.stickDeadband);
     
-    s_Arm.victorDrive(armVal);
+    s_VictorArm.victorDrive(armVal);
 
   }
 
