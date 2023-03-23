@@ -13,11 +13,12 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
+import frc.robot.subsystems.Gripper;
 import frc.robot.subsystems.Swerve;
 import java.util.List;
 
 public class exampleAuto extends SequentialCommandGroup {
-  public exampleAuto(Swerve s_Swerve) {
+  public exampleAuto(Swerve s_Swerve, Gripper s_Gripper) {
     TrajectoryConfig config =
         new TrajectoryConfig(
                 Constants.AutoConstants.kMaxSpeedMetersPerSecond,
@@ -96,6 +97,8 @@ public class exampleAuto extends SequentialCommandGroup {
 
     addCommands(
         new InstantCommand(() -> s_Swerve.resetModulesToAbsolute()),
+        s_Gripper.run(() -> s_Gripper.outake()),
+        new WaitCommand(0.5),
 
      new InstantCommand(() -> s_Swerve.resetOdometry(exampleTrajectory.getInitialPose())),
 

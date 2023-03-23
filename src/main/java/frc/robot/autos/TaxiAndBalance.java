@@ -22,12 +22,13 @@ import frc.robot.Constants;
 import frc.robot.commands.BalanceCommand;
 import frc.robot.commands.DriveBack;
 import frc.robot.commands.DriveForward;
+import frc.robot.subsystems.Gripper;
 import frc.robot.subsystems.Swerve;
 
 
-public class AdvancedAuto extends SequentialCommandGroup {
+public class TaxiAndBalance extends SequentialCommandGroup {
   
-  public AdvancedAuto(Swerve s_Swerve) {
+  public TaxiAndBalance(Swerve s_Swerve, Gripper s_Gripper) {
     TrajectoryConfig config =
         new TrajectoryConfig(
                 Constants.AutoConstants.kMaxSpeedMetersPerSecond,
@@ -71,7 +72,10 @@ Trajectory exampleTrajectory =
 
             
     addCommands(
+        s_Gripper.run(() -> s_Gripper.outake()),
+        new WaitCommand(0.5),
         new InstantCommand(() -> s_Swerve.resetModulesToAbsolute()),
+        
         // new InstantCommand(() -> s_Swerve.invertGyro()),
        new InstantCommand(() -> s_Swerve.zeroGyro()),
        new DriveForward(s_Swerve),
