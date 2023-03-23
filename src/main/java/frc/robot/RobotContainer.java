@@ -73,18 +73,24 @@ public class RobotContainer {
       private final JoystickButton slideTesting2 = 
       new JoystickButton(driver,6);
 
-       private final JoystickButton victorTest = 
+       private final JoystickButton armUp = 
       new JoystickButton(driver, XboxController.Button.kY.value); 
 
-      private final JoystickButton victorTest2 = 
+      private final JoystickButton armDown = 
       new JoystickButton(driver, XboxController.Button.kA.value); 
 
-      private final JoystickButton pistonTest = 
-      new JoystickButton(driver, 6);
+     // private final JoystickButton pistonTest = 
+     // new JoystickButton(driver, 6);
 
 
       private final JoystickButton resetAbsolute =
       new JoystickButton(driver_1,1);
+
+      private final JoystickButton intake =
+      new JoystickButton(driver,XboxController.Button.kX.value);
+
+      private final JoystickButton outake =
+      new JoystickButton(driver,XboxController.Button.kB.value);
       
 
 
@@ -95,10 +101,10 @@ public class RobotContainer {
    private final Slider s_Slider = new Slider();
    //private final Vision s_Vision = new Vision();
 
-    // A complex auto routine that drives forward, drops a hatch, and then drives backward.
-    private final Command exampleAuto = new exampleAuto(s_Swerve);
-    private final Command AdvancedAuto = new AdvancedAuto(s_Swerve);
-    private final Command driveStraight = new driveStraight(s_Swerve);
+   
+    private final Command exampleAuto = new exampleAuto(s_Swerve, s_Gripper);
+    private final Command AdvancedAuto = new TaxiAndBalance(s_Swerve, s_Gripper);
+    private final Command driveStraight = new driveStraight(s_Swerve, s_Gripper);
     private final Command doNothing = new doNothing(s_Swerve);
 
     // A chooser for autonomous commands
@@ -112,7 +118,7 @@ public class RobotContainer {
             s_Swerve,
             () -> -driver_1.getRawAxis(translationAxis) * Swerve.speedRateSwerve,
             () -> -driver_1.getRawAxis(strafeAxis) * Swerve.speedRateSwerve,
-            () -> -driver_2.getRawAxis(rotationAxis) * Swerve.speedRateSwerve,
+            () -> driver_2.getRawAxis(rotationAxis) * Swerve.speedRateSwerve,
             () -> robotCentric.getAsBoolean())); 
 
         s_VictorArm.setDefaultCommand(
@@ -124,10 +130,17 @@ public class RobotContainer {
           new SlideCommand(
             s_Slider,
             () -> (- driver.getRawAxis(slideAxis)) * 1.0)) ; 
+
+
+         s_Gripper.setDefaultCommand(
+          s_Gripper.run(() -> s_Gripper.stop())
+
+
+         );   
             // Add commands to the autonomous command chooser
-      m_chooser.setDefaultOption("duz+denge", AdvancedAuto);
+      m_chooser.setDefaultOption("score+taxi+denge", AdvancedAuto);
       m_chooser.addOption("FULL RUTIN", exampleAuto);
-      m_chooser.addOption("Duz Git", driveStraight);
+      m_chooser.addOption("score+duz", driveStraight);
       m_chooser.addOption("nothing", doNothing);
         // Put the chooser on the dashboard
         SmartDashboard.putData("OTONOM", m_chooser);
@@ -150,11 +163,14 @@ public class RobotContainer {
     xLock.whileTrue(s_Swerve.run(() -> s_Swerve.xLock()));
     //armTesting.whileTrue(s_Arm.run(() -> s_Arm.armTesting()));
     resetAbsolute.onTrue(new InstantCommand(() -> s_Swerve.resetModulesToAbsolute()));
-    victorTest.whileTrue(s_VictorArm.run(() -> s_VictorArm.victorTest()));
-    victorTest2.whileTrue(s_VictorArm.run(() -> s_VictorArm.victorTest2()));
-    pistonTest.onTrue(s_Gripper.run(() -> s_Gripper.pistonTest()));
+    armUp.whileTrue(s_VictorArm.run(() -> s_VictorArm.armUp()));
+    armDown.whileTrue(s_VictorArm.run(() -> s_VictorArm.armDown()));
+    //pistonTest.onTrue(s_Gripper.run(() -> s_Gripper.pistonTest()));
     slideTesting.whileTrue(s_Slider.run(() -> s_Slider.slideTesting()));
     slideTesting2.whileTrue(s_Slider.run(() -> s_Slider.slideTesting2()));
+    intake.whileTrue(s_Gripper.run(() -> s_Gripper.intake()));
+    outake.whileTrue(s_Gripper.run(() -> s_Gripper.outake()));
+
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
