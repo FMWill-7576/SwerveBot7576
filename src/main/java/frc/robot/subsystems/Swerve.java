@@ -147,20 +147,24 @@ public void decSpeed() {
 speedRateSwerve = 0.2;
 }
 
-  public double getPitch() {
-    return gyro.getPitch();
-  }
-  public double getRoll() {
-    return gyro.getRoll();
-  }
-  public Rotation2d getYaw() {
-    //return gyro.getRotation2d();
-    return Rotation2d.fromDegrees(-gyro.getAngle());
-  }
-  public void resetModulesToAbsolute(){
-     for(SwerveModule mod : mSwerveMods){
-        mod.resetToAbsolute();
-    } 
+public double getPitch() {
+ return gyro.getPitch();
+ }
+
+public double getRoll() {
+  return gyro.getRoll();
+}
+
+public Rotation2d getYaw() {
+  //return gyro.getRotation2d();
+   return Rotation2d.fromDegrees(-gyro.getAngle());
+}
+
+
+public void resetModulesToAbsolute(){
+   for(SwerveModule mod : mSwerveMods){
+       mod.resetToAbsolute();
+   } 
     //mSwerveMods[0].resetToAbsolute();
 }
  

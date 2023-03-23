@@ -3,9 +3,6 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
-
-import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
@@ -16,13 +13,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.util.CANSparkMaxUtil;
 import frc.lib.util.CANSparkMaxUtil.Usage;
-import frc.robot.Constants;
+
 
 public class Slider extends SubsystemBase {
   public static double speedRate = 1.0;
   private CANSparkMax slideMotor;
   private RelativeEncoder integratedSlideEncoder ;
   private SparkMaxPIDController slideController;
+  public static double slidePosition;
   /** Creates a new CimTest. */
   public Slider() {
     //cimMotor = new VictorSPX(27);
@@ -39,11 +37,11 @@ public class Slider extends SubsystemBase {
 
   }
     public void slideTesting(){
-      slideMotor.set(0.35);
+      slideMotor.set(1.0);
     }
 
     public void slideTesting2(){
-      slideMotor.set(-0.35);
+      slideMotor.set(-1.0);
     }
   
   /* public void cimMotorConfig(){
@@ -62,7 +60,8 @@ public class Slider extends SubsystemBase {
     slideMotor.setSmartCurrentLimit(30);
     slideMotor.setInverted(false);
     slideMotor.setIdleMode(IdleMode.kBrake);
-    integratedSlideEncoder.setPositionConversionFactor(1);
+    integratedSlideEncoder.setPositionConversionFactor(1/8.45);
+    integratedSlideEncoder.setPosition(0);
     slideController.setP(0);
     slideController.setI(0);
     slideController.setD(0);
@@ -72,10 +71,12 @@ public class Slider extends SubsystemBase {
 
   }
 
-
+ 
   
   @Override
   public void periodic() {
+   slidePosition = integratedSlideEncoder.getPosition();
+   SmartDashboard.putNumber("slidePosition",slidePosition);
 
     // This method will be called once per scheduler run
   }

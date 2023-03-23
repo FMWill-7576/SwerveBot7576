@@ -16,48 +16,60 @@ import frc.robot.Robot;
 
 public class VictorArm extends SubsystemBase {
   
-  private VictorSPX victor1;
-  private VictorSPX victor2;
-  private VictorSPX victor3;
-  private VictorSPX victor4;
+  private VictorSPX bottomLeft;
+  private VictorSPX bottomRight;
+  private VictorSPX topLeft;
+  private VictorSPX topRight;
   private CANCoder  armCoder;
   public double kG;
+  public double upValue;
+  public double downValue;
   /** Creates a new VictorArm. */
   public VictorArm() {
-     victor1  = new VictorSPX(16);
-     victor2 = new VictorSPX(30);
-    //victor3 = new WPI_VictorSPX(18);
-    //victor4 = new WPI_VictorSPX(19);
-    armCoder = new CANCoder(23);
+     bottomLeft  = new VictorSPX(16);
+     bottomRight = new VictorSPX(17);
+    topLeft = new VictorSPX(18);
+    topRight = new VictorSPX(19);
+    //armCoder = new CANCoder(23);
     victorConfig();
-    configArmCoder();
-    kG = 0.18;
-    
+    //configArmCoder();
+   // kG = 0.19;
+    //kG = 0.121;
+   //kG = 0.15;
+    kG = 0.0;
+    //upValue = 0.38;
+    upValue = 0.25;
+    //downValue = 0.03;
+    downValue = -0.05;
   }
   public void victorConfig(){
-victor1.configFactoryDefault();
-victor1.enableVoltageCompensation(true);
-victor1.configVoltageCompSaturation(12.0);
-victor1.setInverted(false);
-victor1.setNeutralMode(NeutralMode.Brake);
+bottomLeft.configFactoryDefault();
+bottomLeft.enableVoltageCompensation(true);
+bottomLeft.configVoltageCompSaturation(12.0);
+bottomLeft.setInverted(false);
+bottomLeft.setNeutralMode(NeutralMode.Brake);
+bottomLeft.set(VictorSPXControlMode.PercentOutput, 0);
     
-victor2.configFactoryDefault();
-victor2.enableVoltageCompensation(true);
-victor2.configVoltageCompSaturation(12.0);
-victor2.setInverted(false);
-victor2.setNeutralMode(NeutralMode.Brake);
-    
-/* victor3.configFactoryDefault();
-victor3.enableVoltageCompensation(true);
-victor3.configVoltageCompSaturation(12.0);
-victor3.setInverted(true);
-victor3.setNeutralMode(NeutralMode.Brake);
+bottomRight.configFactoryDefault();
+bottomRight.enableVoltageCompensation(true);
+bottomRight.configVoltageCompSaturation(12.0);
+bottomRight.setInverted(false);
+bottomRight.setNeutralMode(NeutralMode.Brake);
+bottomRight.set(VictorSPXControlMode.PercentOutput, 0);
 
-victor4.configFactoryDefault();
-victor4.enableVoltageCompensation(true);
-victor4.configVoltageCompSaturation(12.0);
-victor4.setInverted(true);
-victor4.setNeutralMode(NeutralMode.Brake); */
+topLeft.configFactoryDefault();
+topLeft.enableVoltageCompensation(true);
+topLeft.configVoltageCompSaturation(12.0);
+topLeft.setInverted(false);
+topLeft.setNeutralMode(NeutralMode.Brake);
+topLeft.set(VictorSPXControlMode.PercentOutput, 0);
+
+topRight.configFactoryDefault();
+topRight.enableVoltageCompensation(true);
+topRight.configVoltageCompSaturation(12.0);
+topRight.setInverted(false);
+topRight.setNeutralMode(NeutralMode.Brake);
+topRight.set(VictorSPXControlMode.PercentOutput, 0);
 
 
     }
@@ -69,33 +81,42 @@ victor4.setNeutralMode(NeutralMode.Brake); */
 
     }
 
-
-
-
-
-
 public void victorDrive(double power){ 
-victor1.set(VictorSPXControlMode.PercentOutput, power);
-victor2.set(VictorSPXControlMode.PercentOutput, power);
+bottomLeft.set(VictorSPXControlMode.PercentOutput, power);
+bottomRight.set(VictorSPXControlMode.PercentOutput, power);
+topLeft.set(VictorSPXControlMode.PercentOutput, power);
+topRight.set(VictorSPXControlMode.PercentOutput, power);
 }
 
-public void victorTest(){
-  victor1.set(VictorSPXControlMode.PercentOutput, 0.28);
-  victor2.set(VictorSPXControlMode.PercentOutput, 0.28);
+public void armUp(){
+ // bottomLeft.set(VictorSPXControlMode.PercentOutput, upValue);
+  bottomRight.set(VictorSPXControlMode.PercentOutput, upValue);
+ // topLeft.set(VictorSPXControlMode.PercentOutput, upValue);
+  //topRight.set(VictorSPXControlMode.PercentOutput, upValue);
 
 }
-public void victorTest2(){
-  victor1.set(VictorSPXControlMode.PercentOutput, -0.09);
-  victor2.set(VictorSPXControlMode.PercentOutput, -0.09);
+public void armDown(){
+  bottomLeft.set(VictorSPXControlMode.PercentOutput, downValue);
+  bottomRight.set(VictorSPXControlMode.PercentOutput, downValue);
+  topLeft.set(VictorSPXControlMode.PercentOutput, downValue);
+  topRight.set(VictorSPXControlMode.PercentOutput, downValue);
 }
   
 
   @Override
   public void periodic() {
-   // SmartDashboard.putNumber("armCoder",armCoder.getPosition());
-
-
-
-    // This method will be called once per scheduler run
+   /*  if (Slider.slidePosition > 20 && Slider.slidePosition <40 ){
+      kG = 0.11;
+    }
+    else if (Slider.slidePosition > 40 && Slider.slidePosition <60){
+      kG = 0.15;
+    }
+    else if (Slider.slidePosition > 60 && Slider.slidePosition <80){
+      kG = 0.18;
+    }
+    else if (Slider.slidePosition > 80 && Slider.slidePosition <100){
+      kG = 0.25;
+    }
+ */
   }
 }
