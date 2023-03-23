@@ -14,12 +14,14 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Gripper extends SubsystemBase {
-  private VictorSPX gripMotor;
+  private VictorSPX leftGrip;
+  private VictorSPX rightGrip;
    // private Compressor pcmCompressor;
    // Solenoid exampleSolenoidPCM;
   /** Creates a new Gripper. */
   public Gripper() {
-    gripMotor = new VictorSPX(20);
+    leftGrip = new VictorSPX(20);
+    rightGrip = new VictorSPX(21);
     //pcmCompressor = new Compressor(0, PneumaticsModuleType.CTREPCM);
     //pcmCompressor.enableDigital();
     //pcmCompressor.disable();
@@ -32,22 +34,31 @@ public class Gripper extends SubsystemBase {
   }
 
   public void stop(){
-    gripMotor.set(VictorSPXControlMode.PercentOutput, 0.0);
+    leftGrip.set(VictorSPXControlMode.PercentOutput, 0.0);
+    rightGrip.set(VictorSPXControlMode.PercentOutput, 0.0);
   }
   public void   intake(){
-    gripMotor.set(VictorSPXControlMode.PercentOutput, 0.65);
+    leftGrip.set(VictorSPXControlMode.PercentOutput, 0.45);
+    rightGrip.set(VictorSPXControlMode.PercentOutput, 0.45);
   }
 
   public void   outake(){ 
-    gripMotor.set(VictorSPXControlMode.PercentOutput, -0.65);
+    leftGrip.set(VictorSPXControlMode.PercentOutput, -0.45);
+    rightGrip.set(VictorSPXControlMode.PercentOutput, -0.45);
   }
 
   public void gripConfig(){
-gripMotor.configFactoryDefault();
-gripMotor.enableVoltageCompensation(true);
-gripMotor.configVoltageCompSaturation(12.0);
-gripMotor.setInverted(false);
-gripMotor.setNeutralMode(NeutralMode.Brake);
+leftGrip.configFactoryDefault();
+leftGrip.enableVoltageCompensation(true);
+leftGrip.configVoltageCompSaturation(12.0);
+leftGrip.setInverted(false);
+leftGrip.setNeutralMode(NeutralMode.Brake);
+
+rightGrip.configFactoryDefault();
+rightGrip.enableVoltageCompensation(true);
+rightGrip.configVoltageCompSaturation(12.0);
+rightGrip.setInverted(false);
+rightGrip.setNeutralMode(NeutralMode.Brake);
 }
 
   /* public void pistonTest(){

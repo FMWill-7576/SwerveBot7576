@@ -33,14 +33,15 @@ public class VictorArm extends SubsystemBase {
     //armCoder = new CANCoder(23);
     victorConfig();
     //configArmCoder();
-   // kG = 0.19;
+    kG = 0.225;
+    //kG = 0.19;
     //kG = 0.121;
    //kG = 0.15;
-    kG = 0.0;
-    //upValue = 0.38;
-    upValue = 0.25;
-    //downValue = 0.03;
-    downValue = -0.05;
+   // kG = 0.0;
+    upValue = 0.38;
+    //upValue = 0.25;
+    downValue = 0.03;
+    //downValue = -0.05;
   }
   public void victorConfig(){
 bottomLeft.configFactoryDefault();
@@ -89,10 +90,10 @@ topRight.set(VictorSPXControlMode.PercentOutput, power);
 }
 
 public void armUp(){
- // bottomLeft.set(VictorSPXControlMode.PercentOutput, upValue);
+  bottomLeft.set(VictorSPXControlMode.PercentOutput, upValue);
   bottomRight.set(VictorSPXControlMode.PercentOutput, upValue);
- // topLeft.set(VictorSPXControlMode.PercentOutput, upValue);
-  //topRight.set(VictorSPXControlMode.PercentOutput, upValue);
+  topLeft.set(VictorSPXControlMode.PercentOutput, upValue);
+  topRight.set(VictorSPXControlMode.PercentOutput, upValue);
 
 }
 public void armDown(){

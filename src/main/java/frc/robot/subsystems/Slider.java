@@ -21,11 +21,9 @@ public class Slider extends SubsystemBase {
   private RelativeEncoder integratedSlideEncoder ;
   private SparkMaxPIDController slideController;
   public static double slidePosition;
-  /** Creates a new CimTest. */
+  
   public Slider() {
-    //cimMotor = new VictorSPX(27);
-   // cimMotor2 = new VictorSPX(30);
-   // cimMotorConfig(); 
+ 
    slideMotor = new CANSparkMax(54, MotorType.kBrushless);
    integratedSlideEncoder = slideMotor.getEncoder();
    slideController = slideMotor.getPIDController();
@@ -43,21 +41,15 @@ public class Slider extends SubsystemBase {
     public void slideTesting2(){
       slideMotor.set(-1.0);
     }
+
+    public void resetSlider(){
+      integratedSlideEncoder.setPosition(0.0);
+    }
   
-  /* public void cimMotorConfig(){
-    // cimMotor.configFactoryDefault();
-    cimMotor2.configFactoryDefault();
-    // cimMotor.enableVoltageCompensation(true);
-    cimMotor2.enableVoltageCompensation(true);
-   //  cimMotor.configVoltageCompSaturation(12.0);
-    cimMotor2.configVoltageCompSaturation(12.0);
-    // cimMotor.set(VictorSPXControlMode.PercentOutput,0.0 );
-    cimMotor2.set(VictorSPXControlMode.PercentOutput,0.0 );
-  } */
   public void slideMotorConfig(){
     slideMotor.restoreFactoryDefaults();
     CANSparkMaxUtil.setCANSparkMaxBusUsage(slideMotor, Usage.kPositionOnly);
-    slideMotor.setSmartCurrentLimit(30);
+    slideMotor.setSmartCurrentLimit(50);
     slideMotor.setInverted(false);
     slideMotor.setIdleMode(IdleMode.kBrake);
     integratedSlideEncoder.setPositionConversionFactor(1/8.45);
@@ -72,7 +64,6 @@ public class Slider extends SubsystemBase {
   }
 
  
-  
   @Override
   public void periodic() {
    slidePosition = integratedSlideEncoder.getPosition();

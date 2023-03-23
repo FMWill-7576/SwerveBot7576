@@ -91,6 +91,9 @@ public class RobotContainer {
 
       private final JoystickButton outake =
       new JoystickButton(driver,XboxController.Button.kB.value);
+
+      private final JoystickButton resetSlider =
+      new JoystickButton(driver,XboxController.Button.kLeftBumper.value);
       
 
 
@@ -170,6 +173,7 @@ public class RobotContainer {
     slideTesting2.whileTrue(s_Slider.run(() -> s_Slider.slideTesting2()));
     intake.whileTrue(s_Gripper.run(() -> s_Gripper.intake()));
     outake.whileTrue(s_Gripper.run(() -> s_Gripper.outake()));
+    resetSlider.onTrue(new InstantCommand(() -> s_Slider.resetSlider()));
 
   }
   /**
