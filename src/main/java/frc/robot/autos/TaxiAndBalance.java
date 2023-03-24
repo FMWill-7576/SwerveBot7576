@@ -77,16 +77,16 @@ Trajectory exampleTrajectory =
 
             
     addCommands(
-      /*   Commands.run(() -> s_VictorArm.armUp()).withTimeout(0.6).asProxy(),
+         Commands.run(() -> s_VictorArm.armUp()).withTimeout(0.6).asProxy(),
        
         new InstantCommand(() -> s_VictorArm.victorDrive(0.0), s_VictorArm),
         s_Slider.run(() -> s_Slider.slideTesting2()).withTimeout(0.25),
         new WaitCommand(1.0),
-        s_Slider.run(() -> s_Slider.slideTesting()).withTimeout(0.4) */
+        s_Slider.run(() -> s_Slider.slideTesting()).withTimeout(0.4) ,
 
          s_Gripper.run(() -> s_Gripper.outake()),
-        new WaitCommand(0.5),
-        new InstantCommand(() -> s_Swerve.resetModulesToAbsolute()),
+        new WaitCommand(0.5)
+       /*  new InstantCommand(() -> s_Swerve.resetModulesToAbsolute()),
         
         // new InstantCommand(() -> s_Swerve.invertGyro()),
        new InstantCommand(() -> s_Swerve.zeroGyro()),
@@ -97,7 +97,7 @@ Trajectory exampleTrajectory =
        //swerveControllerCommand
        new DriveBack(s_Swerve),
        new BalanceCommand(s_Swerve) 
-      
+       */
    
      );
   

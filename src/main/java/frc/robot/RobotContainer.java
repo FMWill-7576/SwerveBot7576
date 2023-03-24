@@ -127,7 +127,7 @@ public class RobotContainer {
         s_VictorArm.setDefaultCommand(
           new VictorArmCommand(
             s_VictorArm,
-           () -> (- driver.getRawAxis(armAxis) * 0.32) + s_VictorArm.kG)) ; 
+           () -> (- driver.getRawAxis(armAxis) * 0.6) + s_VictorArm.kG)) ; 
 
          s_Slider.setDefaultCommand(
           new SlideCommand(

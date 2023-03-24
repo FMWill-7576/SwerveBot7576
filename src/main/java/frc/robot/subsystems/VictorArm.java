@@ -114,29 +114,29 @@ public void armDown(){
 
     if (Slider.slidePosition == 0.0){
       kG = 0.0;
-      upValue = 0.245 ;
+      upValue = 0.258 ;
       downValue = -0.12 ;
 
     }
     else if (Slider.slidePosition < 0 && Slider.slidePosition > -17 ){
-    kG = 0.12;
-    upValue = 0.245 ;
-    downValue = -0.12 ; }
-   
+    kG = 0.125;
+    upValue = 0.258 ;
+    downValue = -0.12 ; 
+  }
    
     else if (Slider.slidePosition < -17  && Slider.slidePosition > -28 ){
-      kG = 0.162;
-      upValue = 0.265 ;
+      kG = 0.164;
+      upValue = 0.275 ;
       downValue = -0.04 ;
     }   
     else if (Slider.slidePosition < -28 && Slider.slidePosition > -50){
       kG = 0.182;
-      upValue = 0.295 ;
+      upValue = 0.305 ;
       downValue = 0.03  ;      
     }  
     else if (Slider.slidePosition < -50 && Slider.slidePosition > -80){
       kG = 0.212;
-      upValue = 0.325 ;
+      upValue = 0.335 ;
       downValue = 0.08 ;      
     }  
     else if (Slider.slidePosition < -80 ){
@@ -144,6 +144,8 @@ public void armDown(){
       upValue = 0.34 ;
       downValue = 0.1 ;      
     }
+
+    SmartDashboard.putNumber("kG", kG);
  
   }
 }
