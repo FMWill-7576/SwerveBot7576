@@ -28,7 +28,7 @@ public class DriveForward extends CommandBase {
   public void execute() {
     s_Swerve.drive(
       
-      new Translation2d(0.35, 
+      new Translation2d(0.75, 
       0),
         0,
         true,

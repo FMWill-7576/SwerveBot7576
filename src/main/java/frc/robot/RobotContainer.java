@@ -93,7 +93,7 @@ public class RobotContainer {
       new JoystickButton(driver,XboxController.Button.kB.value);
 
       private final JoystickButton resetSlider =
-      new JoystickButton(driver,XboxController.Button.kLeftBumper.value);
+      new JoystickButton(driver,7);
       
 
 
@@ -106,7 +106,7 @@ public class RobotContainer {
 
    
     private final Command exampleAuto = new exampleAuto(s_Swerve, s_Gripper);
-    private final Command AdvancedAuto = new TaxiAndBalance(s_Swerve, s_Gripper);
+    private final Command AdvancedAuto = new TaxiAndBalance(s_Swerve, s_Gripper, s_VictorArm, s_Slider);
     private final Command driveStraight = new driveStraight(s_Swerve, s_Gripper);
     private final Command doNothing = new doNothing(s_Swerve);
 

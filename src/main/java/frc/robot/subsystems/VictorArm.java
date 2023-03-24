@@ -33,7 +33,7 @@ public class VictorArm extends SubsystemBase {
     //armCoder = new CANCoder(23);
     victorConfig();
     //configArmCoder();
-    kG = 0.225;
+   /*  kG = 0.225;
     //kG = 0.19;
     //kG = 0.121;
    //kG = 0.15;
@@ -41,7 +41,12 @@ public class VictorArm extends SubsystemBase {
     upValue = 0.38;
     //upValue = 0.25;
     downValue = 0.03;
-    //downValue = -0.05;
+    //downValue = -0.05; */
+    kG = 0.16;
+    upValue = 0.265 ;
+    downValue = -0.06 ;
+
+
   }
   public void victorConfig(){
 bottomLeft.configFactoryDefault();
@@ -106,18 +111,39 @@ public void armDown(){
 
   @Override
   public void periodic() {
-   /*  if (Slider.slidePosition > 20 && Slider.slidePosition <40 ){
-      kG = 0.11;
+
+    if (Slider.slidePosition == 0.0){
+      kG = 0.0;
+      upValue = 0.245 ;
+      downValue = -0.12 ;
+
     }
-    else if (Slider.slidePosition > 40 && Slider.slidePosition <60){
-      kG = 0.15;
+    else if (Slider.slidePosition < 0 && Slider.slidePosition > -17 ){
+    kG = 0.12;
+    upValue = 0.245 ;
+    downValue = -0.12 ; }
+   
+   
+    else if (Slider.slidePosition < -17  && Slider.slidePosition > -28 ){
+      kG = 0.162;
+      upValue = 0.265 ;
+      downValue = -0.04 ;
+    }   
+    else if (Slider.slidePosition < -28 && Slider.slidePosition > -50){
+      kG = 0.182;
+      upValue = 0.295 ;
+      downValue = 0.03  ;      
+    }  
+    else if (Slider.slidePosition < -50 && Slider.slidePosition > -80){
+      kG = 0.212;
+      upValue = 0.325 ;
+      downValue = 0.08 ;      
+    }  
+    else if (Slider.slidePosition < -80 ){
+      kG = 0.252;
+      upValue = 0.34 ;
+      downValue = 0.1 ;      
     }
-    else if (Slider.slidePosition > 60 && Slider.slidePosition <80){
-      kG = 0.18;
-    }
-    else if (Slider.slidePosition > 80 && Slider.slidePosition <100){
-      kG = 0.25;
-    }
- */
+ 
   }
 }

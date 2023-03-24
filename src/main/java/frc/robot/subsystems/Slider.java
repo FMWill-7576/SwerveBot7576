@@ -52,7 +52,7 @@ public class Slider extends SubsystemBase {
     slideMotor.setSmartCurrentLimit(50);
     slideMotor.setInverted(false);
     slideMotor.setIdleMode(IdleMode.kBrake);
-    integratedSlideEncoder.setPositionConversionFactor(1/8.45);
+    integratedSlideEncoder.setPositionConversionFactor(1/3);
     integratedSlideEncoder.setPosition(0);
     slideController.setP(0);
     slideController.setI(0);

@@ -14,7 +14,10 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ProxyCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -24,11 +27,13 @@ import frc.robot.commands.DriveBack;
 import frc.robot.commands.DriveForward;
 import frc.robot.subsystems.Gripper;
 import frc.robot.subsystems.Swerve;
+import frc.robot.subsystems.VictorArm;
+import frc.robot.subsystems.Slider;
 
 
 public class TaxiAndBalance extends SequentialCommandGroup {
   
-  public TaxiAndBalance(Swerve s_Swerve, Gripper s_Gripper) {
+  public TaxiAndBalance(Swerve s_Swerve, Gripper s_Gripper, VictorArm s_VictorArm, Slider s_Slider) {
     TrajectoryConfig config =
         new TrajectoryConfig(
                 Constants.AutoConstants.kMaxSpeedMetersPerSecond,
@@ -72,19 +77,27 @@ Trajectory exampleTrajectory =
 
             
     addCommands(
-        s_Gripper.run(() -> s_Gripper.outake()),
+      /*   Commands.run(() -> s_VictorArm.armUp()).withTimeout(0.6).asProxy(),
+       
+        new InstantCommand(() -> s_VictorArm.victorDrive(0.0), s_VictorArm),
+        s_Slider.run(() -> s_Slider.slideTesting2()).withTimeout(0.25),
+        new WaitCommand(1.0),
+        s_Slider.run(() -> s_Slider.slideTesting()).withTimeout(0.4) */
+
+         s_Gripper.run(() -> s_Gripper.outake()),
         new WaitCommand(0.5),
         new InstantCommand(() -> s_Swerve.resetModulesToAbsolute()),
         
         // new InstantCommand(() -> s_Swerve.invertGyro()),
        new InstantCommand(() -> s_Swerve.zeroGyro()),
        new DriveForward(s_Swerve),
-       new WaitCommand(3.0),
+       new WaitCommand(1.7),
       //new InstantCommand(() -> s_Swerve.resetOdometry(exampleTrajectory.getInitialPose())),
   
        //swerveControllerCommand
        new DriveBack(s_Swerve),
-       new BalanceCommand(s_Swerve)
+       new BalanceCommand(s_Swerve) 
+      
    
      );
   
