@@ -12,19 +12,19 @@ import frc.robot.Constants;
 import frc.robot.subsystems.Swerve;
 
 /** Uses a PID and the gyroscope to balance the robot on the charger. */
-public class BalanceCommand extends CommandBase {
+public class BalanceCommand2 extends CommandBase {
   private final Swerve s_Swerve;
 
   /**
-   * Creates a new {@link BalanceCommand}.
+   * Creates a new {@link BalanceCommand2}.
    * 
    * @param subsystem The required subsystem.
    */
-  public BalanceCommand(Swerve s_Swerve) {
+  public BalanceCommand2(Swerve s_Swerve) {
     this.s_Swerve = s_Swerve;
     addRequirements(s_Swerve);
   }
- double initRoll = DriveBack.initialRoll;
+ double initRoll = DriveForward.initialRoll;
  double tolerance = 4.0;
   @Override
   public void execute() {
@@ -33,7 +33,7 @@ public class BalanceCommand extends CommandBase {
       
       s_Swerve.drive(
       
-    new Translation2d(-0.062, 
+    new Translation2d(-0.065, 
     0).times(Constants.Swerve.maxSpeed),
       0,
       true,

@@ -99,6 +99,8 @@ public class exampleAuto extends SequentialCommandGroup {
         new InstantCommand(() -> s_Swerve.resetModulesToAbsolute()),
         s_Gripper.run(() -> s_Gripper.outake()),
         new WaitCommand(0.5),
+        new InstantCommand(() -> s_Gripper.stop(), s_Gripper),
+
 
      new InstantCommand(() -> s_Swerve.resetOdometry(exampleTrajectory.getInitialPose())),
 

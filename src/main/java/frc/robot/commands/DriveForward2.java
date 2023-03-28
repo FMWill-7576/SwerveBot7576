@@ -9,11 +9,11 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Swerve;
 
-public class DriveForward extends CommandBase {
+public class DriveForward2 extends CommandBase {
   static double initialRoll;
   private final Swerve s_Swerve;
   /** Creates a new driveBack. */
-  public DriveForward(Swerve s_Swerve) {
+  public DriveForward2(Swerve s_Swerve) {
     this.s_Swerve = s_Swerve;
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -29,7 +29,7 @@ public class DriveForward extends CommandBase {
   public void execute() {
     s_Swerve.drive(
       
-      new Translation2d(0.33, 
+      new Translation2d(0.37, 
       0).times(Constants.Swerve.maxSpeed),
         0,
         true,
@@ -46,6 +46,6 @@ public class DriveForward extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (s_Swerve.getRoll() > initialRoll + 3.5);
+    return (s_Swerve.getRoll() <-( initialRoll + 3.5));
   }
 }

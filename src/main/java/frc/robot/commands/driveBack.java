@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.Swerve;
 
 public class DriveBack extends CommandBase {
@@ -20,7 +21,7 @@ public class DriveBack extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-   initialRoll = s_Swerve.getRoll();
+   initialRoll = DriveForward.initialRoll;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -28,8 +29,8 @@ public class DriveBack extends CommandBase {
   public void execute() {
     s_Swerve.drive(
       
-      new Translation2d(-0.75, 
-      0),
+      new Translation2d(-0.33, 
+      0).times(Constants.Swerve.maxSpeed),
         0,
         true,
         true);
@@ -45,6 +46,6 @@ public class DriveBack extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (Math.abs(s_Swerve.getRoll() - initialRoll) > 2.5);
+    return (Math.abs(s_Swerve.getRoll() - initialRoll) > 3.0);
   }
 }
