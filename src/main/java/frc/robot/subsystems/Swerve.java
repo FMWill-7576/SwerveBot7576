@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
-import com.kauailabs.navx.frc.AHRS;
+import frc.robot.NavX.*;
+//import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
@@ -18,7 +19,7 @@ import frc.robot.Constants;
 import frc.robot.SwerveModule;
 
 public class Swerve extends SubsystemBase {
-  private final AHRS gyro = new AHRS(SPI.Port.kMXP); 
+  private final AHRS gyro = new frc.robot.NavX.AHRS(SPI.Port.kMXP); 
 
   private SwerveDriveOdometry swerveOdometry;
   private SwerveModule[] mSwerveMods;
@@ -173,7 +174,7 @@ public void resetModulesToAbsolute(){
   public void periodic() {
     swerveOdometry.update(getYaw(), getPositions());
     field.setRobotPose(getPose());
-    SmartDashboard.putNumber("Robot Heading",(gyro.getAngle()+ 180));
+    SmartDashboard.putNumber("Robot Heading",(-gyro.getAngle()));
     //SmartDashboard.putString("Robot Location", getPose().getRotation().toString());
     SmartDashboard.putString("Robot Location", getPose().getTranslation().toString());
     SmartDashboard.putNumber("Speed Rate", speedRateSwerve);

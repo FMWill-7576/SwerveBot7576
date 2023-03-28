@@ -42,7 +42,7 @@ public class VictorArm extends SubsystemBase {
     //upValue = 0.25;
     downValue = 0.03;
     //downValue = -0.05; */
-    kG = 0.16;
+    kG = 0.0;
     upValue = 0.265 ;
     downValue = -0.06 ;
 
@@ -95,44 +95,45 @@ topRight.set(VictorSPXControlMode.PercentOutput, power);
 }
 
 public void armUp(){
-  bottomLeft.set(VictorSPXControlMode.PercentOutput, upValue);
+   bottomLeft.set(VictorSPXControlMode.PercentOutput, upValue);
   bottomRight.set(VictorSPXControlMode.PercentOutput, upValue);
   topLeft.set(VictorSPXControlMode.PercentOutput, upValue);
   topRight.set(VictorSPXControlMode.PercentOutput, upValue);
 
 }
-public void armDown(){
+public void armDown(){  
   bottomLeft.set(VictorSPXControlMode.PercentOutput, downValue);
   bottomRight.set(VictorSPXControlMode.PercentOutput, downValue);
   topLeft.set(VictorSPXControlMode.PercentOutput, downValue);
   topRight.set(VictorSPXControlMode.PercentOutput, downValue);
+  
 }
   
 
   @Override
   public void periodic() {
 
-    if (Slider.slidePosition == 0.0){
+      if (Slider.slidePosition == 0.0){
       kG = 0.0;
       upValue = 0.258 ;
       downValue = -0.12 ;
 
     }
     else if (Slider.slidePosition < 0 && Slider.slidePosition > -17 ){
-    kG = 0.125;
+    kG = 0.135;
     upValue = 0.258 ;
     downValue = -0.12 ; 
   }
    
     else if (Slider.slidePosition < -17  && Slider.slidePosition > -28 ){
-      kG = 0.164;
+      kG = 0.174;
       upValue = 0.275 ;
-      downValue = -0.04 ;
+      downValue = -0.06 ;
     }   
     else if (Slider.slidePosition < -28 && Slider.slidePosition > -50){
-      kG = 0.182;
+      kG = 0.190;
       upValue = 0.305 ;
-      downValue = 0.03  ;      
+      downValue = 0.02  ;      
     }  
     else if (Slider.slidePosition < -50 && Slider.slidePosition > -80){
       kG = 0.212;
@@ -141,11 +142,11 @@ public void armDown(){
     }  
     else if (Slider.slidePosition < -80 ){
       kG = 0.252;
-      upValue = 0.34 ;
+      upValue = 0.35 ;
       downValue = 0.1 ;      
-    }
+    } 
 
-    SmartDashboard.putNumber("kG", kG);
+    SmartDashboard.putNumber("kG", kG); 
  
   }
 }
