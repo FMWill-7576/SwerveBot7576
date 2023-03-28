@@ -99,9 +99,9 @@ public class driveStraight extends SequentialCommandGroup {
         s_Gripper.run(() -> s_Gripper.outake()).withTimeout(0.8),
      new InstantCommand(() -> s_Swerve.resetModulesToAbsolute()),
 
-     //new InstantCommand(() -> s_Swerve.resetOdometry(exampleTrajectory.getInitialPose())),
+     new InstantCommand(() -> s_Swerve.resetOdometry(exampleTrajectory.getInitialPose())),
 
-     //swerveControllerCommand,
+     swerveControllerCommand,
 
       new InstantCommand(() -> s_Swerve.drive(
             new Translation2d(0, 0),
