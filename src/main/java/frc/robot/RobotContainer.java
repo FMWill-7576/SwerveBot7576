@@ -107,12 +107,12 @@ public class RobotContainer {
    //private final Vision s_Vision = new Vision();
 
    
-    private final Command exampleAuto = new exampleAuto(s_Swerve, s_Gripper);
+   // private final Command exampleAuto = new exampleAuto(s_Swerve, s_Gripper);
     private final Command TaxiAndBalance = new TaxiAndBalance(s_Swerve, s_Gripper, s_VictorArm, s_Slider);
-    private final Command driveStraight = new driveStraight(s_Swerve, s_Gripper);
+   // private final Command driveStraight = new driveStraight(s_Swerve, s_Gripper);
     private final Command doNothing = new doNothing(s_Swerve);
     private final Command ScoreAndBalance = new ScoreAndBalance(s_Swerve, s_Gripper, s_VictorArm, s_Slider);
-    private final Command AutoRoutine = new AutoRoutine(s_Swerve, s_Gripper, s_VictorArm, s_Slider);
+    private final Command ScoreAndTaxi = new ScoreAndTaxi(s_Swerve, s_Gripper, s_VictorArm, s_Slider);
 
     // A chooser for autonomous commands
      SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -149,7 +149,7 @@ public class RobotContainer {
       //m_chooser.addOption("FULL RUTIN", exampleAuto);
       m_chooser.addOption("score-denge", ScoreAndBalance);
       m_chooser.addOption("nothing", doNothing);
-      m_chooser.addOption("score-taxi", AutoRoutine);
+      m_chooser.addOption("score-taxi", ScoreAndTaxi);
         // Put the chooser on the dashboard
         SmartDashboard.putData("OTONOM", m_chooser);
 
