@@ -66,6 +66,8 @@ public class RobotContainer {
 
       private final JoystickButton xLock = 
       new JoystickButton(driver_2, 4);
+      private final JoystickButton resetAbsolute2 = 
+      new JoystickButton(driver, 8);
 
        private final JoystickButton slideTesting = 
       new JoystickButton(driver,5); 
@@ -106,9 +108,11 @@ public class RobotContainer {
 
    
     private final Command exampleAuto = new exampleAuto(s_Swerve, s_Gripper);
-    private final Command AdvancedAuto = new TaxiAndBalance(s_Swerve, s_Gripper, s_VictorArm, s_Slider);
+    private final Command TaxiAndBalance = new TaxiAndBalance(s_Swerve, s_Gripper, s_VictorArm, s_Slider);
     private final Command driveStraight = new driveStraight(s_Swerve, s_Gripper);
     private final Command doNothing = new doNothing(s_Swerve);
+    private final Command ScoreAndBalance = new ScoreAndBalance(s_Swerve, s_Gripper, s_VictorArm, s_Slider);
+    private final Command AutoRoutine = new AutoRoutine(s_Swerve, s_Gripper, s_VictorArm, s_Slider);
 
     // A chooser for autonomous commands
      SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -141,10 +145,11 @@ public class RobotContainer {
 
          );   
             // Add commands to the autonomous command chooser
-      m_chooser.setDefaultOption("score+taxi+denge", AdvancedAuto);
-      m_chooser.addOption("FULL RUTIN", exampleAuto);
-      m_chooser.addOption("score+duz", driveStraight);
+      m_chooser.setDefaultOption("score+taxi+denge", TaxiAndBalance);
+      //m_chooser.addOption("FULL RUTIN", exampleAuto);
+      m_chooser.addOption("score-denge", ScoreAndBalance);
       m_chooser.addOption("nothing", doNothing);
+      m_chooser.addOption("score-taxi", AutoRoutine);
         // Put the chooser on the dashboard
         SmartDashboard.putData("OTONOM", m_chooser);
 
@@ -166,6 +171,7 @@ public class RobotContainer {
     xLock.whileTrue(s_Swerve.run(() -> s_Swerve.xLock()));
     //armTesting.whileTrue(s_Arm.run(() -> s_Arm.armTesting()));
     resetAbsolute.onTrue(new InstantCommand(() -> s_Swerve.resetModulesToAbsolute()));
+    resetAbsolute2.onTrue(new InstantCommand(() -> s_Swerve.resetModulesToAbsolute()));
     armUp.whileTrue(s_VictorArm.run(() -> s_VictorArm.armUp()));
     armDown.whileTrue(s_VictorArm.run(() -> s_VictorArm.armDown()));
     //pistonTest.onTrue(s_Gripper.run(() -> s_Gripper.pistonTest()));
