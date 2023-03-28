@@ -7,6 +7,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax.IdleMode;
+import com.revrobotics.CANSparkMax.SoftLimitDirection;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -39,7 +40,7 @@ public class Slider extends SubsystemBase {
     }
 
     public void slideTesting2(){
-      slideMotor.set(-1.0);
+     slideMotor.set(-1.0);
     }
 
     public void resetSlider(){
@@ -54,6 +55,7 @@ public class Slider extends SubsystemBase {
     slideMotor.setIdleMode(IdleMode.kBrake);
     integratedSlideEncoder.setPositionConversionFactor(1/3);
     integratedSlideEncoder.setPosition(0);
+    slideMotor.setSoftLimit(SoftLimitDirection.kReverse, -100);
     slideController.setP(0);
     slideController.setI(0);
     slideController.setD(0);
