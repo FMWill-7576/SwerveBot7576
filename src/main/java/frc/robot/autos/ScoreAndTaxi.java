@@ -18,9 +18,9 @@ import frc.robot.subsystems.VictorArm;
 import frc.robot.subsystems.Slider;
 
 
-public class AutoRoutine extends SequentialCommandGroup {
+public class ScoreAndTaxi extends SequentialCommandGroup {
   
-  public AutoRoutine(Swerve s_Swerve, Gripper s_Gripper, VictorArm s_VictorArm, Slider s_Slider) {
+  public ScoreAndTaxi(Swerve s_Swerve, Gripper s_Gripper, VictorArm s_VictorArm, Slider s_Slider) {
 
             
 
