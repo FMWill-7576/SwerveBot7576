@@ -28,7 +28,7 @@ public class Vision extends SubsystemBase{
         
     }
 
-    public double getYDistance(double y) {
+   /*  public double getYDistance(double y) {
 
         return((Constants.TAG_HEIGHT -Constants.CAMERA_HEIGHT)/(Math.tan((y) * Math.PI/180)));
 
@@ -38,7 +38,7 @@ public class Vision extends SubsystemBase{
 
         return(getYDistance(y) / Math.tan(x * Math.PI / 180));
 
-    }
+    } */
 
     public double getTheta() {
 
