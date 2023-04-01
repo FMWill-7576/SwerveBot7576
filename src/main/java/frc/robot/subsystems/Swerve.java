@@ -183,7 +183,7 @@ public void resetModulesToAbsolute(){
   @Override
   public void periodic() {
     for(SwerveModule mod : mSwerveMods){
-      if  (Math.abs(mod.integratedAngleEncoder.getPosition() - mod.getCanCoder().getDegrees()) > 8.0)
+      if  (Math.abs(mod.integratedAngleEncoder.getPosition() - mod.getCanCoder().getDegrees()) > 10.0)
       mod.resetToAbsolute();
   } 
    
