@@ -12,7 +12,7 @@ import frc.robot.subsystems.Swerve;
 public class DriveForward2 extends CommandBase {
   static double initialRoll;
   private final Swerve s_Swerve;
-  /** Creates a new driveBack. */
+  /** Creates a new DriveForward2. */
   public DriveForward2(Swerve s_Swerve) {
     this.s_Swerve = s_Swerve;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -29,7 +29,7 @@ public class DriveForward2 extends CommandBase {
   public void execute() {
     s_Swerve.drive(
       
-      new Translation2d(0.37, 
+      new Translation2d(0.372, 
       0).times(Constants.Swerve.maxSpeed),
         0,
         true,

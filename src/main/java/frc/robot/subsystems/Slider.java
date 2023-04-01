@@ -35,11 +35,11 @@ public class Slider extends SubsystemBase {
     slideMotor.set(value);
 
   }
-    public void slideTesting(){
+    public void armUp(){
       slideMotor.set(1.0);
     }
 
-    public void slideTesting2(){
+    public void armDown(){
      slideMotor.set(-1.0);
     }
 

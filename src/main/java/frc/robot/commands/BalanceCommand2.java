@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Constants;
 import frc.robot.subsystems.Swerve;
 
-/** Uses a PID and the gyroscope to balance the robot on the charger. */
+/** Uses the gyroscope to balance the robot on the charger. */
 public class BalanceCommand2 extends CommandBase {
   private final Swerve s_Swerve;
 
@@ -33,7 +33,7 @@ public class BalanceCommand2 extends CommandBase {
       
       s_Swerve.drive(
       
-    new Translation2d(-0.065, 
+    new Translation2d(-0.063, 
     0).times(Constants.Swerve.maxSpeed),
       0,
       true,
@@ -45,7 +45,7 @@ public class BalanceCommand2 extends CommandBase {
 
   s_Swerve.drive(
       
-    new Translation2d(0.062, 
+    new Translation2d(0.07, 
     0).times(Constants.Swerve.maxSpeed),
       0,
       true,
@@ -55,11 +55,11 @@ public class BalanceCommand2 extends CommandBase {
 
     else{
 
-      s_Swerve.drive(
+       s_Swerve.drive(
         new Translation2d(0,  0),
         0,
         true,
-        true);
+        true); 
         s_Swerve.xLock();
     }
 
@@ -67,12 +67,13 @@ public class BalanceCommand2 extends CommandBase {
 }
   @Override
   public void end(boolean interrupted) {
-    s_Swerve.drive(new Translation2d(0,0), 0.0, true, false);
+   // s_Swerve.drive(new Translation2d(0,0), 0.0, true, false);
     s_Swerve.xLock();
   }
 
   @Override
   public boolean isFinished() {
+    //return (s_Swerve.getRoll() < (initRoll + tolerance)) && (s_Swerve.getRoll() > -(initRoll + tolerance));
     return false;
   }
 }

@@ -108,7 +108,7 @@ public class AHRS implements Sendable, Gyro {
         }
     };
 
-    static final byte   NAVX_DEFAULT_UPDATE_RATE_HZ         = 60;
+    static final byte   NAVX_DEFAULT_UPDATE_RATE_HZ         = 66;
     static final int    YAW_HISTORY_LENGTH      			= 10;
     static final short  DEFAULT_ACCEL_FSR_G                 = 2;
     static final short  DEFAULT_GYRO_FSR_DPS                = 2000;

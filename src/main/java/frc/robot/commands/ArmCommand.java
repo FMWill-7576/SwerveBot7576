@@ -36,7 +36,7 @@ public class ArmCommand extends CommandBase {
   @Override
   public void execute() {
 
-    double armVal = MathUtil.applyDeadband(armSup.getAsDouble(), 0.05);
+    double armVal = MathUtil.applyDeadband(armSup.getAsDouble(), 0.039);
     
     s_Arm.armDrive(armVal);
   }

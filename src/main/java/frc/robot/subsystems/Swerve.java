@@ -3,6 +3,7 @@ import frc.robot.NavX.*;
 //import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -17,7 +18,7 @@ import frc.robot.Constants;
 import frc.robot.SwerveModule;
 
 public class Swerve extends SubsystemBase {
-  private final AHRS gyro = new frc.robot.NavX.AHRS(SPI.Port.kMXP); 
+  private final AHRS gyro =  new AHRS(SPI.Port.kMXP, (byte)50);
 
   private SwerveDriveOdometry swerveOdometry;
   private SwerveModule[] mSwerveMods;
@@ -34,7 +35,7 @@ public class Swerve extends SubsystemBase {
   } 
 
   
-
+ // Timer.delay(1.0);
     mSwerveMods =
         new SwerveModule[] {
           new SwerveModule(0, Constants.Swerve.Mod0.constants),
@@ -42,7 +43,7 @@ public class Swerve extends SubsystemBase {
           new SwerveModule(2, Constants.Swerve.Mod2.constants),
           new SwerveModule(3, Constants.Swerve.Mod3.constants)
         };
-
+ // Timer.delay(1.0);
 
    swerveOdometry = new SwerveDriveOdometry(Constants.Swerve.swerveKinematics, getYaw(), getPositions());
   
@@ -128,6 +129,18 @@ public class Swerve extends SubsystemBase {
     gyro.reset();
   }
 
+  public double getTilt(){
+    double pitch = gyro.getPitch();
+    double roll = gyro.getRoll();
+    if ((pitch+roll) >=0) {
+      return Math.sqrt(pitch*pitch + roll*roll);
+    } else {
+
+    
+    return  -Math.sqrt(pitch*pitch + roll*roll);
+    }
+  }
+
  
 public static double speedRateSwerve = 1.0; 
 
@@ -164,12 +177,16 @@ public void resetModulesToAbsolute(){
    for(SwerveModule mod : mSwerveMods){
        mod.resetToAbsolute();
    } 
-    //mSwerveMods[0].resetToAbsolute();
 }
  
 
   @Override
   public void periodic() {
+    for(SwerveModule mod : mSwerveMods){
+      if  (Math.abs(mod.integratedAngleEncoder.getPosition() - mod.getCanCoder().getDegrees()) > 5.0)
+      mod.resetToAbsolute();
+  } 
+   
     swerveOdometry.update(getYaw(), getPositions());
     field.setRobotPose(getPose());
     SmartDashboard.putNumber("Robot Heading",(-gyro.getAngle()));
@@ -182,8 +199,8 @@ public void resetModulesToAbsolute(){
     for (SwerveModule mod : mSwerveMods) {
       SmartDashboard.putNumber(
           "Mod " + mod.moduleNumber + " Cancoder", mod.getCanCoder().getDegrees());
-      //SmartDashboard.putNumber(
-      //    "Mod " + mod.moduleNumber + " Integrated", mod.getPosition().angle.getDegrees());
+      SmartDashboard.putNumber(
+          "Mod " + mod.moduleNumber + " Integrated", mod.getPosition().angle.getDegrees());
       SmartDashboard.putNumber(
           "Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);
           //SmartDashboard.putString(

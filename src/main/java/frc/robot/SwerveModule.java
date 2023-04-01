@@ -30,7 +30,7 @@ public class SwerveModule {
   private CANSparkMax driveMotor;
 
   private RelativeEncoder driveEncoder;
-  private RelativeEncoder integratedAngleEncoder;
+  public RelativeEncoder integratedAngleEncoder;
   private CANCoder angleEncoder;
   public double CANcoderInitTime = 0.0;
 
@@ -56,12 +56,14 @@ public class SwerveModule {
     angleController = angleMotor.getPIDController();
     configAngleMotor();
     //configAngleMotor();
+    //configAngleMotor();
 
     /* Drive Motor Config */
     driveMotor = new CANSparkMax(moduleConstants.driveMotorID, MotorType.kBrushless);
     driveEncoder = driveMotor.getEncoder();
     driveController = driveMotor.getPIDController();
     configDriveMotor();
+    //configDriveMotor();
     //configDriveMotor();
 
     lastAngle = getState().angle;

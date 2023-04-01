@@ -69,17 +69,23 @@ public class RobotContainer {
       private final JoystickButton resetAbsolute2 = 
       new JoystickButton(driver, 8);
 
-       private final JoystickButton slideTesting = 
-      new JoystickButton(driver,5); 
+    //   private final JoystickButton armUp = 
+    //  new JoystickButton(driver,5); 
 
-      private final JoystickButton slideTesting2 = 
-      new JoystickButton(driver,6);
+     // private final JoystickButton armHome = 
+     // new JoystickButton(driver,6);
 
-       private final JoystickButton armUp = 
-      new JoystickButton(driver, XboxController.Button.kY.value); 
+    
 
+      private final JoystickButton armReset = 
+      new JoystickButton(driver,7);
       private final JoystickButton armDown = 
-      new JoystickButton(driver, XboxController.Button.kA.value); 
+      new JoystickButton(driver,1);
+      private final JoystickButton armUp = 
+     new JoystickButton(driver, 4); 
+
+    //  private final JoystickButton armDown = 
+    //  new JoystickButton(driver, XboxController.Button.kA.value); 
 
      // private final JoystickButton pistonTest = 
      // new JoystickButton(driver, 6);
@@ -89,10 +95,16 @@ public class RobotContainer {
       new JoystickButton(driver_1,1);
 
       private final JoystickButton intake =
-      new JoystickButton(driver,XboxController.Button.kX.value);
+      new JoystickButton(driver,3);
 
       private final JoystickButton outake =
-      new JoystickButton(driver,XboxController.Button.kB.value);
+      new JoystickButton(driver,6);
+
+      private final JoystickButton hold = 
+      new JoystickButton(driver,5);
+
+      private final JoystickButton drop =
+      new JoystickButton(driver,2);
 
       private final JoystickButton resetSlider =
       new JoystickButton(driver,7);
@@ -101,18 +113,20 @@ public class RobotContainer {
 
   /* Subsystems */
   private final Swerve s_Swerve = new Swerve();
-  private final VictorArm s_VictorArm = new VictorArm();
+ // private final VictorArm s_VictorArm = new VictorArm();
   private final Gripper s_Gripper = new Gripper();
-   private final Slider s_Slider = new Slider();
+   //private final Slider s_Slider = new Slider();
+   private final Arm s_Arm = new Arm();
    //private final Vision s_Vision = new Vision();
 
    
    // private final Command exampleAuto = new exampleAuto(s_Swerve, s_Gripper);
-    private final Command TaxiAndBalance = new TaxiAndBalance(s_Swerve, s_Gripper, s_VictorArm, s_Slider);
+    private final Command ScoreTaxiAndBalance = new ScoreTaxiAndBalance(s_Swerve, s_Gripper, s_Arm);
    // private final Command driveStraight = new driveStraight(s_Swerve, s_Gripper);
     private final Command doNothing = new doNothing(s_Swerve);
-    private final Command ScoreAndBalance = new ScoreAndBalance(s_Swerve, s_Gripper, s_VictorArm, s_Slider);
-    private final Command ScoreAndTaxi = new ScoreAndTaxi(s_Swerve, s_Gripper, s_VictorArm, s_Slider);
+    private final Command GripOnly = new OnlyGrip(s_Swerve, s_Gripper);
+    private final Command ScoreAndBalance = new ScoreAndBalance(s_Swerve, s_Gripper, s_Arm);
+    private final Command ScoreAndTaxi = new ScoreAndTaxi(s_Swerve, s_Gripper, s_Arm);
 
     // A chooser for autonomous commands
      SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -128,7 +142,7 @@ public class RobotContainer {
             () -> driver_2.getRawAxis(rotationAxis) * Swerve.speedRateSwerve,
             () -> robotCentric.getAsBoolean())); 
 
-        s_VictorArm.setDefaultCommand(
+  /*       s_VictorArm.setDefaultCommand(
           new VictorArmCommand(
             s_VictorArm,
            () -> (- driver.getRawAxis(armAxis) * 0.6) + s_VictorArm.kG)) ; 
@@ -136,20 +150,27 @@ public class RobotContainer {
          s_Slider.setDefaultCommand(
           new SlideCommand(
             s_Slider,
-            () -> (- driver.getRawAxis(slideAxis)) * 1.0)) ; 
-
+            () -> ((driver.getRawAxis(slideAxis)) * 1.0)+s_Arm.calculatedkG)) ; 
+*/
 
          s_Gripper.setDefaultCommand(
-          s_Gripper.run(() -> s_Gripper.stop())
+          s_Gripper.run(() -> s_Gripper.stop()));
+
+          s_Arm.setDefaultCommand( 
+          new ArmCommand(
+            s_Arm,
+           () -> (-driver.getRawAxis(armAxis) * 1)+s_Arm.calculatedkG )  
+          //s_Arm.run(() -> s_Arm.armDrive(1.0))
 
 
          );   
             // Add commands to the autonomous command chooser
-      m_chooser.setDefaultOption("score+taxi+denge", TaxiAndBalance);
+      m_chooser.setDefaultOption("score+taxi+denge", ScoreTaxiAndBalance);
       //m_chooser.addOption("FULL RUTIN", exampleAuto);
       m_chooser.addOption("score-denge", ScoreAndBalance);
       m_chooser.addOption("nothing", doNothing);
       m_chooser.addOption("score-taxi", ScoreAndTaxi);
+      m_chooser.addOption("sadece gripper", GripOnly);
         // Put the chooser on the dashboard
         SmartDashboard.putData("OTONOM", m_chooser);
 
@@ -172,14 +193,20 @@ public class RobotContainer {
     //armTesting.whileTrue(s_Arm.run(() -> s_Arm.armTesting()));
     resetAbsolute.onTrue(new InstantCommand(() -> s_Swerve.resetModulesToAbsolute()));
     resetAbsolute2.onTrue(new InstantCommand(() -> s_Swerve.resetModulesToAbsolute()));
-    armUp.whileTrue(s_VictorArm.run(() -> s_VictorArm.armUp()));
-    armDown.whileTrue(s_VictorArm.run(() -> s_VictorArm.armDown()));
+   // armUp.whileTrue(s_VictorArm.run(() -> s_VictorArm.armUp()));
+   // armDown.whileTrue(s_VictorArm.run(() -> s_VictorArm.armDown()));
     //pistonTest.onTrue(s_Gripper.run(() -> s_Gripper.pistonTest()));
-    slideTesting.whileTrue(s_Slider.run(() -> s_Slider.slideTesting()));
-    slideTesting2.whileTrue(s_Slider.run(() -> s_Slider.slideTesting2()));
+   // armUp.whileTrue(s_Slider.run(() -> s_Slider.armUp()));
+   // armDown.whileTrue(s_Slider.run(() -> s_Slider.armDown()));
+    armUp.whileTrue(s_Arm.run(() -> s_Arm.armUp()));
+    armDown.whileTrue(s_Arm.run(() -> s_Arm.armDown()));
+   // armHome.whileTrue(s_Arm.run(() -> s_Arm.armHome()));
+    armReset.whileTrue(s_Arm.run(() -> s_Arm.armReset()));
     intake.whileTrue(s_Gripper.run(() -> s_Gripper.intake()));
     outake.whileTrue(s_Gripper.run(() -> s_Gripper.outake()));
-    resetSlider.onTrue(new InstantCommand(() -> s_Slider.resetSlider()));
+    drop.whileTrue(s_Gripper.run(() -> s_Gripper.drop()));
+    hold.toggleOnTrue(s_Gripper.run(() -> s_Gripper.hold()));
+  //  resetSlider.onTrue(new InstantCommand(() -> s_Slider.resetSlider()));
 
   }
   /**

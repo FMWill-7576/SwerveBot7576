@@ -23,9 +23,9 @@ public final class Constants {
 
     public static final double armConversionPositionFactor = 360.0/71.0/7.0/2.4923 ;
 
-    public static final double armKP = 0.5 ;
-    public static final double armKI = 0.05 ;
-    public static final double armKD = 0.15 ;
+    public static final double armKP = 0.15 ;
+    public static final double armKI = 0.00 ;
+    public static final double armKD = 0.00 ;
     public static final double armKFF = 0.0 ;
 
     public static final  IdleMode armNeutralMode = IdleMode.kBrake ;
@@ -70,7 +70,7 @@ public final class Constants {
 
     /* Swerve Current Limiting */
     public static final int angleContinuousCurrentLimit = 20;
-    public static final int driveContinuousCurrentLimit = 70;
+    public static final int driveContinuousCurrentLimit = 50;
 
     /* Angle Motor PID Values */
     public static final double angleKP = 0.03;
@@ -121,7 +121,7 @@ public final class Constants {
       public static final int driveMotorID = 3;
       public static final int angleMotorID = 4;
       public static final int canCoderID = 0;
-      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(259.85);
+      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(258.83);
       public static final SwerveModuleConstants constants =
           new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
     }
@@ -131,7 +131,7 @@ public final class Constants {
       public static final int driveMotorID = 1;
       public static final int angleMotorID = 2;
       public static final int canCoderID = 1;
-      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(199.5);
+      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(199.25);
       public static final SwerveModuleConstants constants =
           new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
     }
@@ -141,7 +141,7 @@ public final class Constants {
       public static final int driveMotorID = 5;
       public static final int angleMotorID = 6;
       public static final int canCoderID = 2;
-      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(135.7);
+      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(136.0);
       public static final SwerveModuleConstants constants =
           new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
     }
@@ -151,7 +151,7 @@ public final class Constants {
       public static final int driveMotorID = 7;
       public static final int angleMotorID = 8;
       public static final int canCoderID = 3;
-      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(65.2);
+      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(64.6);
       public static final SwerveModuleConstants constants =
           new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
     }
@@ -161,11 +161,11 @@ public final class Constants {
     public static final double kMaxSpeedMetersPerSecond = 3.0;
     public static final double kMaxAccelerationMetersPerSecondSquared = 1.5;
     public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
-    public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI/2;
+    public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI*2 / 3;
 
     public static final double kPXController = 1.5;
     public static final double kPYController = 1.5;
-    public static final double kPThetaController = 2.48;
+    public static final double kPThetaController = 2.15;
 
     public static final double Balancekp = 0.8;
     public static final double Balancekd = 0.09;
@@ -175,18 +175,6 @@ public final class Constants {
             kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
   }
 
-       /*============================
-                Vision
-    ==============================*/
-
-    /**
-     * Physical location of the camera on the robot, relative to the center of the robot.
-     */
-    public static final Transform3d CAMERA_TO_ROBOT =
-        new Transform3d(new Translation3d(-0.33, 0.0, 0.0), new Rotation3d());
-    public static final Transform3d ROBOT_TO_CAMERA = CAMERA_TO_ROBOT.inverse();
-
-    public static final double CAMERA_HEIGHT = 0.22;
-    public static final double TAG_HEIGHT = 0.5; //TODO: temporary value
+ 
 
 }
