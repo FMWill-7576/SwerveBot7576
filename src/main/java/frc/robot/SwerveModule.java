@@ -70,7 +70,7 @@ public class SwerveModule {
   }
 
   public void setDesiredState(SwerveModuleState desiredState, boolean isOpenLoop) {
-       if (Math.abs(desiredState.speedMetersPerSecond) < 0.001) { 
+       if (Math.abs(desiredState.speedMetersPerSecond) < 0.005) { 
       driveMotor.set(0);
       angleMotor.set(0);
       if (desiredState.angle == lastAngle) {   
